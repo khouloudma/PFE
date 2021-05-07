@@ -35,20 +35,4 @@ class HomeController extends Controller
 
 
     }
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Contact
-     */
-    public function AddContact(array $data)
-    {
-        return Contact::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'message' => $data['message'],
-        ]);
-    }
-    
 }
