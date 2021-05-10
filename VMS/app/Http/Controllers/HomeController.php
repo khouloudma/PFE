@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\testomonial;
 use Illuminate\Http\Request;
-use App\Contact;
 
 
 
@@ -26,13 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('home');
     }
-    public function testomonial()
-    {
-        $testomonial = testomonial::get();
-        return view("welcome",compact('testomonial'));
-
-
-    }
+   
 }

@@ -1,0 +1,31 @@
+[09-05-2021 02:11:15] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 02:12:24] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 02:14:23] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 02:14:25] PayPal\Core\PayPalHttpConnection : INFO: Invalid or no certificate authority found - Retrying using bundled CA certs file
+[09-05-2021 02:41:39] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 02:41:40] PayPal\Core\PayPalHttpConnection : INFO: Invalid or no certificate authority found - Retrying using bundled CA certs file
+[09-05-2021 13:05:48] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/oauth2/token HTTP/1.1, Host: api.sandbox.paypal.com, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.3.12; bit=64; os=Windows_NT_10.0; machine=AMD64; crypto-lib-ver=1.1.1d; curl=7.64.0), Authorization: Basic Og==, Accept: */*, Content-Length: 29, Content-Type: application/x-www-form-urlencoded, , 
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: grant_type=client_credentials
+--------------------------------------------------------------------------------------------------------------------------------
+
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Content-Length: 77, Content-Type: application/json, Date: Sun, 09 May 2021 13:05:54 GMT, Paypal-Debug-Id: 9a2380b00f78f, X-Paypal-Token-Service: IAAS, 
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
+[09-05-2021 13:05:57] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[09-05-2021 13:23:06] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 13:23:35] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/oauth2/token HTTP/1.1, Host: api.sandbox.paypal.com, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.14.0 (platform-ver=7.3.12; bit=64; os=Windows_NT_10.0; machine=AMD64; crypto-lib-ver=1.1.1d; curl=7.64.0), Authorization: Basic Og==, Accept: */*, Content-Length: 29, Content-Type: application/x-www-form-urlencoded, , 
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: grant_type=client_credentials
+--------------------------------------------------------------------------------------------------------------------------------
+
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: Cache-Control: max-age=0, no-cache, no-store, must-revalidate, Content-Length: 77, Content-Type: application/json, Date: Sun, 09 May 2021 13:23:43 GMT, Paypal-Debug-Id: df5b454976e10, X-Paypal-Token-Service: IAAS, 
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
+[09-05-2021 13:23:45] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+

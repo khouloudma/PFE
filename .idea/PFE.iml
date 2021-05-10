@@ -105,6 +105,7 @@
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/paypal/rest-api-sdk-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

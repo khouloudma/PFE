@@ -101,6 +101,7 @@
       <path value="$PROJECT_DIR$/VMS/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/VMS/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/VMS/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/VMS/vendor/paypal/rest-api-sdk-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

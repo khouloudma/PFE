@@ -14,18 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::POST('contactcontroller','ContactController@index');
+Route::post('pay','PaymentController@Paywithpaypal')->name('pay');
+Route::get('/Status','PaymentController@Status')->name('Status');
+Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
 
-Route::get('/', function () {      
-    $testomonial = testomonial::get();
 
-    return view("welcome",compact('testomonial'));
-});
+Route::get('/','WelcomeController@index');
 Route::get('/contact', function () {
     return view('contact');
 });
 Route::get('/features', function () {
     return view('features');
 });
+Route::get('/privacy', function () {
+    return view('privacy'); //front not fixedyet
+});
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+

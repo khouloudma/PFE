@@ -22,7 +22,7 @@
                                                 <li><a href="elements.html">Feedback</a></li>
                                             </ul></li>
                                         <li><a href="{{ route('login') }}">Sign in </a></li>
-                                        <li><a href="{{ route('register') }}">Sign up </a></li> 
+                                        <li><a href="{{ route('register') }}">Register </a></li> 
                                     </ul>
                                 </nav>
                             </div>
