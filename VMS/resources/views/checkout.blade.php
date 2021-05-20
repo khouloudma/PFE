@@ -19,20 +19,23 @@
             <div class="col-md-10 col-lg-10">
                 <div class="login-wrap p-4 p-md-5">
                     <center><h2>Glad to have you in our entrepise</h2></center>
-                    <h3 class="mb-4">Hope you come back soon </h3>
+                    <br><br><br>
 
                     <form action="#" class="signup-form">
-                        <div class="form-group">
-                            <label class="label" for="name">your 4 digit code</label>
-                            <input type="text" class="form-control" placeholder="****">
+                        <div class="form-group"><br>
+                            <label class="label" for="name" style="font-size: 23px;">Your 4 digit code:</label>
+                            <center> <input style="    width: 170px;"type="text" class="form-control" placeholder="     *   *    *   *"></center>  
                         </div>
+                        
                             <div class="form-group d-flex justify-content-end mt-5">
                                 <button type="submit" class="btn btn-primary submit"><span
                                         class="fa fa-paper-plane"></span></button>
                             </div>
-
+<br>
+                            <h2 class="mb-5" style="    margin-left: 396px;color: #ffffff;">Hope you come back soon ! </h2>
 
                             </form>
+                            
                         </div>
                         <a href="/home">dashboard</a>
                 </div>

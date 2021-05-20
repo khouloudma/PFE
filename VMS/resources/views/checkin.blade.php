@@ -27,13 +27,19 @@
                             <input type="text" class="form-control" placeholder="John Doe">
                         </div>
                         <div class="form-group">
-                            <label class="label" for="email">Phone number</label>
+                            <label class="label" for="phone number">Phone number</label>
                             <input type="text" class="form-control" placeholder="+216 93 887 912">
                         </div>
                         <div class="form-group">
                             <label class="label" for="email">Email Address</label>
                             <input type="text" class="form-control" placeholder="johndoe@gmail.com">
                         </div>
+                        <div class="form-group">
+                            <label class="label" for="purpose">Purpose</label>
+                            <textarea  class="form-control" ></textarea>
+                        </div>
+                      
+                        
                         <div class="form-group">
                             <label class="label" for="capture">capture</label>
                             <input type="file" accept="image/*" id="capture" capture="camera" class="form-control">
