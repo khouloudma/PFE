@@ -26,5 +26,20 @@ class HomeController extends Controller
     {
         return view('home');
     }
-   
+    public function profile()
+    {
+        return view('profile');
+    }
+    public function visitor()
+    {
+        return view('visitorLog');
+    }
+    public function checkin()
+    {
+        return view('checkin');
+    }
+       public function checkout()
+    {
+        return view('checkout');
+    }
 }

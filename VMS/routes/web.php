@@ -32,5 +32,10 @@ Route::get('/privacy', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/visitor', 'HomeController@visitor')->name('visitor');
+Route::get('/checkin', 'HomeController@checkin')->name('checkin');
+Route::get('/checkout', 'HomeController@checkout')->name('checkout');
+
 
 

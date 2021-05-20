@@ -4345,6 +4345,7 @@ tbody.collapse.show {
 }
 
 .navbar {
+  background-color:#fafafa;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -15460,7 +15461,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar[data-color="purple"] li.active>a {
-  background-color: #9c27b0;
+  background: linear-gradient(to bottom, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+  
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
 }
 
@@ -17858,6 +17860,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 
 .card [class*="card-header-"]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
   border-radius: 3px;
+  background: linear-gradient(to bottom, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
   margin-top: -20px;
   padding: 15px;
 }

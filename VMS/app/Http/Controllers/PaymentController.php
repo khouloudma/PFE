@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Config\paypal;
-use App\Http\Controllers\Session;
+use Session;
 use App\User;
 use PayPal\Api\PaymentExecution;
 use PayPal\Rest\ApiContext;
@@ -10,6 +10,8 @@ use PayPal\Auth\OAuthTokenCredential;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use PayPal\Api\Amount;
+use URL;
+use Redirect;
 use PayPal\Api\Details;
 use Illuminate\Support\Facades\Hash;
 use PayPal\Api\Item;
@@ -23,32 +25,19 @@ use PayPal\Exception\PayPalConnectionException;
 
 class PaymentController extends Controller
 {   
-    private $paypal;
+    private $apiContext;
     
     public function __construct(){
-
-        
+        $client_id='AQ-pfQX5Us0NdQJYpduRy5kh1JkUSxtcf4jlQGTXeoUhUoZohORi7c2mJJhkB9zUyMXKeMX6nNu-NNrQ';
+        $secret ='EIJQYjkNkf_JFU5PfK0QtIWuCTMX3rdMZzrIp2XWnqi0mXJ67xwGCivg_gLjHR6Pdw-DbrQiuLKdQgD9';
+        $paypal_conf = \Config::get('paypal');
+        $this->_api_context = new ApiContext(new OAuthTokenCredential(
+            $client_id,$secret)
+        );
+        $this->_api_context->setConfig($paypal_conf['settings']);
     }
     public function Paywithpaypal(Request $request){
-       $clientId ='AQ-pfQX5Us0NdQJYpduRy5kh1JkUSxtcf4jlQGTXeoUhUoZohORi7c2mJJhkB9zUyMXKeMX6nNu-NNrQ';
-        $secret ='EIJQYjkNkf_JFU5PfK0QtIWuCTMX3rdMZzrIp2XWnqi0mXJ67xwGCivg_gLjHR6Pdw-DbrQiuLKdQgD9';
-           
-        //dd(config('paypal.settings.mode')); ya9ra feha sandbox
-        $paypal = new \PayPal\Rest\ApiContext(
-            new \PayPal\Auth\OAuthTokenCredential(
-                $clientId, $secret
-            )
-        );
-
-        
-        $paypal->setConfig([
-                'mode'=> env('PAYPAL_MODE', 'sandbox'),
-                'http.ConnectionTimeOut'=>3000,
-                'log.LogEnabled' =>true,
-                'log.FileName' =>'../PayPal.log',
-                'log.LogLevel' =>'FINE',
-                'cache.enabled' => true,
-            ]);
+    
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -60,82 +49,101 @@ class PaymentController extends Controller
 
         ]);
         
-       
-        $price = $request->input('plan');
-        //set payer
-        $payer = new Payer();
-        $payer->setPaymentMethod("paypal");
-        //set item 
-        $item = new Item();
-        $item->setName('Plan')
-            ->setCurrency('USD')
+		$montant=$request->input('plan');
+		$desc='Plan';
+		//dd($reservation);
+		$payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+		$item_1 = new Item();
+		$item_1->setName('Item 1') /** item name **/
+            ->setCurrency('EUR')
             ->setQuantity(1)
-            ->setPrice($price);
-        //set itemlist
-            $itemList = new ItemList();
-            $itemList->setItems(array($item));
-        //amount
-        $amount = new Amount();
-        $amount->setCurrency("USD")
-            ->setTotal($price);
-        //set transaction
-        $transaction = new Transaction();
+            ->setPrice($montant); /** unit price **/
+		$item_list = new ItemList();
+        $item_list->setItems(array($item_1));
+		$amount = new Amount();
+        $amount->setCurrency('EUR')
+            ->setTotal($montant);
+		$transaction = new Transaction();
         $transaction->setAmount($amount)
-            ->setItemList($itemList)
-            ->setDescription("Plan Payment");
-        //redirect
-        $name=$request->input('name');
-        $email=$request->input('email');
-        $Company_name=$request->input('Company_name');
-        $Country=$request->input('Country');
-        $Category_field=$request->input('Category_field');
-        $Phone_number=$request->input('Phone_number');
-        $plan=$request->input('plan');
-        $password=Hash::make($request->input('password'));
-        $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl("http://127.0.0.1:8000/Status?name=$name&email=$email&Company_name=$Company_name&Country=$Country&Category_field=$Category_field&Phone_number=$Phone_number&plan=$plan&password=$password")
-                    ->setCancelUrl("http://127.0.0.1:8000/cancelled");
-        //payment
+            ->setItemList($item_list)
+            ->setDescription($desc);
+            $name=$request->input('name');
+            $email=$request->input('email');
+            $Company_name=$request->input('Company_name');
+            $Country=$request->input('Country');
+            $Category_field=$request->input('Category_field');
+            $Phone_number=$request->input('Phone_number');
+            $plan=$request->input('plan');
+            $password=Hash::make($request->input('password'));
+		$redirect_urls = new RedirectUrls();
+        $redirect_urls->setReturnUrl("http://127.0.0.1:8000/Status?name=$name&email=$email&Company_name=$Company_name&Country=$Country&Category_field=$Category_field&Phone_number=$Phone_number&plan=$plan&password=$password") /** Specify return URL **/
+            ->setCancelUrl(URL::route('Status'));
+		$payment = new Payment();
+        $payment->setIntent('Sale')
+            ->setPayer($payer)
+            ->setRedirectUrls($redirect_urls)
+            ->setTransactions(array($transaction));
+        /** dd($payment->create($this->_api_context));exit; **/
+        try {
+		$payment->create($this->_api_context);
+		} catch (\PayPal\Exception\PayPalConnectionException $ex) {
+		if (\Config::get('app.debug')) {
+	 	\Session::put('error', 'Session expirée');
+     //           return Redirect::route('pay');
+				return redirect('/cancelled')->with('error', ' Session expirée  ');
 
-        $payment = new Payment();
-        $payment->setIntent("sale")
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->setTransactions(array($transaction));
-        try{
-         $payment->create($paypal);
-            } catch (Exception $e){
-                    die($e);}
+		} else {
+		// \Session::put('error', 'erreur survenue');
+        //        return Redirect::route('pay');
+			 return redirect('/cancelled')->with('error', ' erreur survenue  ');
 
-            
-        $approvalUrl=$payment->getApprovalLink();
-                header("Location: {$approvalUrl}");
-           
-            return redirect($approvalUrl);
+		}
+		}
+		foreach ($payment->getLinks() as $link) {
+		if ($link->getRel() == 'approval_url') {
+		$redirect_url = $link->getHref();
+                break;
+		}
+		}
+		/** add payment ID to session **/
+        $paypal_payment_id=$payment->getId();
+        Session::put('paypal_payment_id',$paypal_payment_id );
+		if (isset($redirect_url)) {
+		/** redirect to paypal **/
+            return Redirect::away($redirect_url);
+		}
+	//	\Session::put('error', 'Erreur survenue');
+    //    return Redirect::route('pay');
+	 return redirect('/cancelled')->with('error', ' erreur survenue  ');
+
+       
+      
             
         }
     function Status(Request $request){
-        $user = new User([   
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'Company_name' => $request['Company_name'],
-            'Country' => $request['Country'],
-            'Category_field' => $request['Category_field'],
-            'Phone_number' => $request['Phone_number'],
-            'plan' => $request['plan'],
-            'password' => Hash::make($request['password']),]);
-        $user->save();
-      
-        return view('/home');     
-        
+        //dd($reservation);
 
-      /*   $payment_id = Session::get('paypal_payment_id');
+    /** Get the payment ID before session clear **/
+    $payment_id =Session::GET('paypal_payment_id');   
 
-    // clear the session payment ID
+    /** clear the session payment ID **/
     Session::forget('paypal_payment_id');
+    if (empty($request->get('PayerID')) || empty($request->get('token'))) {
+     \Session::put('error', 'Paiement échouée');
+   //     return Redirect::route('/pay');
+     return redirect('/cancelled')->with('error', ' Paiement échouée  ');
 
-    
-    $user = new User([   
+    }
+    $payment = Payment::get($payment_id, $this->_api_context);
+    $execution = new PaymentExecution();
+    $execution->setPayerId($request->get('PayerID'));
+    /**Execute the payment **/
+    $result = $payment->execute($execution, $this->_api_context);
+    if ($result->getState() == 'approved') {
+     \Session::put('success', 'Paiement avec succès');
+   
+     $user = new User([   
         'name' => $request['name'],
         'email' => $request['email'],
         'Company_name' => $request['Company_name'],
@@ -144,20 +152,13 @@ class PaymentController extends Controller
         'Phone_number' => $request['Phone_number'],
         'plan' => $request['plan'],
         'password' => Hash::make($request['password']),]);
-
-    $payment = Payment::get($payment_id, $this->_api_context);
-    $execution->setPayerId($request->input('PayerID'));
-
-    $result = $payment->execute($execution, $this->_api_context);
-
-    echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
-
-    if ($result->getState() == 'approved') { // payment made
-        return Redirect('home')->with('success', 'Payment success')->compact('user');
-                            }
-                            return Redirect('auth.register')
-                                ->with('error', 'Payment failed');
- */ 
+    $user->save();
+    return view('/home')->with( ['user' => $user] );
+     
+    }
+    \Session::put('error', 'Paiement échoué');
+  //  return Redirect::route('/pay');
+    return redirect('/cancelled/')->with('error', ' Paiement échoué  ');
 
     }
     function cancelled(){ 
