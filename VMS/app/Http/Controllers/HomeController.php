@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\visitor;
 
 
 
@@ -32,7 +33,8 @@ class HomeController extends Controller
     }
     public function visitor()
     {
-        return view('visitorLog');
+        $visitor = Visitor::get();
+        return view('visitorLog',compact('visitor'));
     }
     public function checkin()
     {
@@ -41,5 +43,9 @@ class HomeController extends Controller
        public function checkout()
     {
         return view('checkout');
+    }
+    public function checkinsucess()
+    {
+        return view('check-in-succes');
     }
 }

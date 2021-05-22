@@ -180,7 +180,7 @@ Visitor  log
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a> {{ Auth::user()->name }}</a>
+                  <i class="material-icons">person</i><a> Khouloud</a>
 
                   <p class="d-lg-none d-md-block">
                     Account
@@ -238,8 +238,18 @@ Visitor  log
                         </th>
                       </thead>
                       <tbody>
+                      @foreach($visitor as $vis)
                         <tr>
+                        <td>{{$vis->id}}</td>
+                        <td>{{$vis->visitor_image}}</td>
+                        <td>{{$vis->name}}</td>
+                        <td>{{$vis->phone}}</td>
+                        <td>{{$vis->email}}</td>
+                        <td>{{$vis->created_at}}</td>
+                        <td>{{$vis->updated_at}}</td>
+                        <td>{{$vis->purpose}}</td>
                         </tr>
+                      @endforeach
                       </tbody>
                     </table>
                   </div>

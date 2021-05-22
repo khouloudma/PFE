@@ -13,7 +13,7 @@ class CreateVisitorTable extends Migration
      */
     public function up()
     {
-        Schema::table('visitors', function (Blueprint $table) {
+        Schema::create('visitors', function (Blueprint $table) {
             $table->id();
             $table->string('visitor_image');
             $table->string('name');

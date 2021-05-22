@@ -1,15 +1,4 @@
 
-<!--
-=========================================================
-Material Dashboard - v2.1.2
-=========================================================
-
-Product Page: https://www.creative-tim.com/product/material-dashboard
-Copyright 2020 Creative Tim (https://www.creative-tim.com)
-Coded by Creative Tim
-
-=========================================================
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +32,7 @@ The above copyright notice and this permission notice shall be included in all c
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="home">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
@@ -179,7 +168,7 @@ The above copyright notice and this permission notice shall be included in all c
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a> {{ Auth::user()->name }}</a>
+                  <i class="material-icons">person</i><a> Khouloud</a>
 
                   <p class="d-lg-none d-md-block">
                     Account

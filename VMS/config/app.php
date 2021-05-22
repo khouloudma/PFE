@@ -79,10 +79,7 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-    'providers' => [
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class
-    ]
-    'locale' => 'en',
+
 
     /*
     |--------------------------------------------------------------------------

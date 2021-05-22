@@ -28,6 +28,7 @@ class PaymentController extends Controller
     private $apiContext;
     
     public function __construct(){
+
         $client_id='AQ-pfQX5Us0NdQJYpduRy5kh1JkUSxtcf4jlQGTXeoUhUoZohORi7c2mJJhkB9zUyMXKeMX6nNu-NNrQ';
         $secret ='EIJQYjkNkf_JFU5PfK0QtIWuCTMX3rdMZzrIp2XWnqi0mXJ67xwGCivg_gLjHR6Pdw-DbrQiuLKdQgD9';
         $paypal_conf = \Config::get('paypal');
@@ -153,8 +154,8 @@ class PaymentController extends Controller
         'plan' => $request['plan'],
         'password' => Hash::make($request['password']),]);
     $user->save();
-    return view('/home')->with( ['user' => $user] );
-     
+    $user = auth()->user();
+    return view('/home', compact('user'));
     }
     \Session::put('error', 'Paiement échoué');
   //  return Redirect::route('/pay');
