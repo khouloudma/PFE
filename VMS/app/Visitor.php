@@ -8,6 +8,6 @@ class Visitor extends Model
 {
     protected $table='visitors';
     protected $fillable = [
-         'name','phone','email', 'purpose',
+         'name','phone','email', 'purpose','visitor_image',
     ];
 }

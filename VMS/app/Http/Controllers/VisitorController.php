@@ -3,53 +3,41 @@
 namespace App\Http\Controllers;
 use App\Visitor;
 use Illuminate\Http\Request;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class VisitorController extends Controller
 {
     public function add(Request $request)
   {
-     $name='';
-     if($request->file('capture')!=null)
-    {$image=$request->file('capture');
-     $name =  $image->getClientOriginalName();
-                 $path = storage_path()."/images/";
-      $date=date('d-m-Y-H-i-s');
-    //$name=$name.'-service-'.$date ;
+  
     
-         $image->move($path,  $name );
-    }
     
      $visitor  = new Visitor([
               'name' => $request->get('name'),
               'phone' => $request->get('phone'),
               'email' => $request->get('email'),
               'purpose' => $request->get('purpose'),
-              'visitor_image'=>$name,
+              'visitor_image'=> $request->get('capture'),
            ]);
- 
         $visitor->save();
+        Nexmo::message()->send([
+          'to'   => '21693887912',
+          'from' => '16105552344',
+          'text' => 'kan wsolek nmdelek 10dt.'
+      ]);
     return view('check-in-succes',compact('visitor'));
 
   }
   public function store(Request $request)
   {
-        $name='';
-    if($request->file('capture')!=null)
-    {$image=$request->file('capture');
-     $name =  $image->getClientOriginalName();
-                 $path = storage_path()."/images/";
-      $date=date('d-m-Y-H-i-s');
-    $name=$name.'-visitor-'.$date ;
-         $image->move($path,  $name );
-    }
-               
+          
          $visitor  = new Visitor([
 
             'name' => $request->get('name'),
             'phone' => $request->get('phone'),
             'email' => $request->get('email'),
             'purpose' => $request->get('purpose'),
-            'visitor_image' => $name,
+            'visitor_image' => $request->get('capture'),
            ]);
 
         $visitor->save();
