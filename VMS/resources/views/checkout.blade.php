@@ -23,8 +23,8 @@
 
                     <form action="#" class="signup-form">
                         <div class="form-group"><br>
-                            <label class="label" for="name" style="font-size: 23px;">Your 4 digit code:</label>
-                            <center> <input style="    width: 170px;"type="text" class="form-control" placeholder="     *   *    *   *"></center>  
+                            <label class="label" for="name" style="font-size: 23px;">Your 5 digit code:</label>
+                            <center> <input style="width: 170px;"type="text" class="form-control" placeholder="         *   *    *   *    *"></center>  
                         </div>
                         
                             <div class="form-group d-flex justify-content-end mt-5">

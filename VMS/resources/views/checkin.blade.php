@@ -36,23 +36,38 @@ video {
                             <canvas></canvas>
                             <br />
                             <button id="newphoto">Take A Photo</button>
-                            <input type="text" hidden='true' value="nothing" id='capture' name='capture'>
+                            <input type="text" hidden='true' value="nothing" id='visitor_image' name='visitor_image'>
+                            @error('visitor_image')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                             </div></center></div>
                         <div class="form-group">
                             <label class="label" for="name">Full Name</label>
                             <input type="text" class="form-control" name='name' id='name'placeholder="John Doe" required>
+                            @error('name')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="label" for="phone">Phone number</label>
-                            <input type="text" class="form-control" name='phone' id='phone' placeholder="+216 93 887 912" required>
+                            <input type="text" class="form-control" name='phone' id='phone' placeholder="216 93 887 912" required>
+                            @error('phone')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="label" for="email">Email Address</label>
                             <input type="text" class="form-control" id='email' name='email'placeholder="johndoe@gmail.com" required>
+                            @error('email')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="label" for="purpose">Purpose</label>
                             <textarea  class="form-control" name='purpose' id="purpose" required></textarea>
+                            @error('purpose')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                         </div>
                       
                         <div class="form-group d-flex justify-content-end mt-5">
@@ -107,8 +122,8 @@ function takeAPhoto() {
     canvasPhoto.style.display = "block";
    var bannerImage = canvasPhoto.getContext("2d").drawImage(videoCamera, 0, 0, videoCamera.width, videoCamera.height);
     let dataURL =canvasPhoto.toDataURL("image/png");
-    document.getElementById('capture').value =dataURL;
-    console.log( document.getElementById('capture').value);
+    document.getElementById('visitor_image').value =dataURL;
+    console.log( document.getElementById('visitor_image').value);
   videoCamera.style.display = "none";
 
 };
