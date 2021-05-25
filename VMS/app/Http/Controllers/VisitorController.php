@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 use App\Visitor;
 use Illuminate\Http\Request;
-use Nexmo\Laravel\Facade\Nexmo;
+use Twilio\Rest\Client; 
 
 class VisitorController extends Controller
 {
     public function add(Request $request)
   {
   
-    
+    $sid = "AC0aad29db4e4ad5469b2acda89a5f3092"; // Your Account SID from www.twilio.com/console
+$token = "4e39d6377a0465835ec8c0898febbcd3"; // Your Auth Token from www.twilio.com/console
+
+$client = new Client($sid, $token);
+$message = $client->messages->create(
+  $request->get('phone'), // Text this number
+  [
+    'from' => '14024152696', // From a valid Twilio number
+    'body' => 'welcome test is there a repetition?'
+  ]
+);
     
      $visitor  = new Visitor([
               'name' => $request->get('name'),
@@ -20,11 +30,7 @@ class VisitorController extends Controller
               'visitor_image'=> $request->get('capture'),
            ]);
         $visitor->save();
-        Nexmo::message()->send([
-          'to'   => '21693887912',
-          'from' => '16105552344',
-          'text' => 'kan wsolek nmdelek 10dt.'
-      ]);
+       
     return view('check-in-succes',compact('visitor'));
 
   }

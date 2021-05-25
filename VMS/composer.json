@@ -16,7 +16,8 @@
         "laravel/nexmo-notification-channel": "^2.5",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
-        "paypal/rest-api-sdk-php": "*"
+        "paypal/rest-api-sdk-php": "*",
+        "twilio/sdk": "^6.24"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
