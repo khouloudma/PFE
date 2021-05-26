@@ -40,14 +40,13 @@ class VisitorController extends Controller
         'email' => ['required', 'string', 'email', 'max:255'],
         'phone' => ['required', 'integer','min:1000000000','max:99999999999'],
         'purpose' => ['required', 'string', 'max:1500','min:4'],
-      ]);
+      ]);dd($request);
       $email=$request->get('email');
-      $visitor= Visitor::where('email',$email)->get();
-          if(!empty($visitor)){//old visitor
-
-            $visitor= Visitor::where('email',$email)->increment('frequentlyVisted');
-
-
+          if($visitor= Visitor::where('email',$email)){//old visitor
+            $visitor= Visitor::where('email',$email)->get();
+//hethy tmchy jawha behy 
+            $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1')]);
+dd('t3adet supposé gdim');
           }elseif(empty($visitor)){
 
             dd('tchuf fyh jdid');
@@ -58,6 +57,7 @@ class VisitorController extends Controller
                     'purpose' => $request->get('purpose'),
                     'visitor_image'=> $request->get('visitor_image'),
                     'code'=> $first,
+                   'frequentlyVisted'=> '0',
 
                 ]); 
               $visitor->save();}
