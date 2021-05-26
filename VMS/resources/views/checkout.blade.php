@@ -17,14 +17,28 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-10">
+            @if(Session::has('failure'))
+
+<div class="alert alert-success" role="alert"> <center>
+
+<strong> Failure: </strong>  {{ Session::get('failure') }}
+</center>
+</div>
+
+@endif
                 <div class="login-wrap p-4 p-md-5">
                     <center><h2>Glad to have you in our entrepise</h2></center>
                     <br><br><br>
 
-                    <form action="#" class="signup-form">
+                    <form method="POST"  enctype="multipart/form-data"  action="/checkoutsucess" class="signup-form">
+                    {{ csrf_field() }}
+
                         <div class="form-group"><br>
                             <label class="label" for="name" style="font-size: 23px;">Your 5 digit code:</label>
-                            <center> <input style="width: 170px;"type="text" class="form-control" placeholder="         *   *    *   *    *"></center>  
+                            <center> <input style="width: 170px;"type="text" id='code' name='code' class="form-control" placeholder="         *   *    *   *    *"></center>  
+                            @error('code')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
                         </div>
                         
                             <div class="form-group d-flex justify-content-end mt-5">

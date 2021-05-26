@@ -34,8 +34,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/visitor', 'HomeController@visitor')->name('visitor');
+Route::get('/history', 'HomeController@history')->name('history');
 Route::get('/checkin', 'HomeController@checkin')->name('checkin');
 Route::POST('/checkinadd','VisitorController@add')->name('visitor.add');
+Route::POST('/checkoutsucess','HomeController@checkoutsuccess')->name('visitor.checkout');
 Route::get('/checkout', 'HomeController@checkout')->name('checkout');
 
 

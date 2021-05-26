@@ -110,7 +110,7 @@ Visitor  log
             </a>
           </li>
           <li class="nav-item  ">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="/history">
             <i class="material-icons">notifications</i>
               <p>History</p>
             </a>
@@ -215,9 +215,7 @@ Visitor  log
                         <th>
                           ID
                         </th>
-                        <th>
-                          Photo
-                        </th>
+                       
                         <th>
                           Name
                         </th>
@@ -238,18 +236,19 @@ Visitor  log
                         </th>
                       </thead>
                       <tbody>
+                    @if(isset($visitor))
                       @foreach($visitor as $vis)
                         <tr>
                         <td>{{$vis->id}}</td>
-                        <td>{{$vis->visitor_image}}</td>
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
                         <td>{{$vis->created_at}}</td>
-                        <td>{{$vis->updated_at}}</td>
+                        <td>Not yet</td>
                         <td>{{$vis->purpose}}</td>
                         </tr>
                       @endforeach
+                    @endif
                       </tbody>
                     </table>
                   </div>

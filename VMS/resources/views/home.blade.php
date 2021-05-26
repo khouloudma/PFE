@@ -98,7 +98,7 @@
             </a>
           </li>
           <li class="nav-item  ">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="/history">
             <i class="material-icons">notifications</i>
               <p>History</p>
             </a>

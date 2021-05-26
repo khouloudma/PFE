@@ -17,7 +17,8 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
- 
+  <title>
+History  </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -37,17 +38,16 @@ The above copyright notice and this permission notice shall be included in all c
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Profile
-        </a></div>
+History        </a></div>
       <div class="sidebar-wrapper">
       <ul class="nav">
-          <li class="nav-item   ">
+          <li class="nav-item  ">
             <a class="nav-link" href="home">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item  ">
             <a class="nav-link" href="visitor">
               <i class="material-icons">person</i>
               <p>Visitor log</p>
@@ -107,13 +107,13 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Help</p>
             </a>
           </li>
-          <li class="nav-item  ">
+          <li class="nav-item  active">
             <a class="nav-link" href="/history">
             <i class="material-icons">notifications</i>
               <p>History</p>
             </a>
           </li>
-          <li class="nav-item active  ">
+          <li class="nav-item  ">
             <a class="nav-link" href="profile">
             <i class="material-icons">library_books</i>
               <p>Profile</p>
@@ -200,92 +200,58 @@ The above copyright notice and this permission notice shall be included in all c
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <div class="card">
+              <div class="card card-plain">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Edit Profile</h4>
-                  <p class="card-category">Complete your profile</p>
+                 <center> <h4 class="card-title mt-0"> Your visitors History </h4></center>
                 </div>
                 <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Company (disabled)</label>
-                          <input type="text" class="form-control" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email address</label>
-                          <input type="email" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">City</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Country</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>About Me</label>
-                          <div class="form-group">
-                            <textarea class="form-control" rows="5"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-                    <div class="clearfix"></div>
-                  </form>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="">
+                       
+                        <th>
+                          ID
+                        </th>
+                       
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Phone number
+                        </th>
+                        <th>
+                          Email adress
+                        </th>
+                        <th>
+                          Check-in
+                        </th>
+                         <th>
+                          Check-out
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>
+                    @if(isset($visitor))
+                      @foreach($visitor as $vis)
+                        <tr>
+                        <td>{{$vis->id}}</td>
+                        <td>{{$vis->name}}</td>
+                        <td>{{$vis->phone}}</td>
+                        <td>{{$vis->email}}</td>
+                        <td>{{$vis->created_at}}</td>
+                        <td>{{$vis->checkout_date}}</td>
+                        <td>{{$vis->purpose}}</td>
+                        </tr>
+                      @endforeach
+                    @endif
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-        
           </div>
         </div>
       </div>
