@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Visitor;
+use App\Mail\codeEmail;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client; ;
 use DB;
 
+use Illuminate\Support\Facades\Mail;
 class VisitorController extends Controller
 {
     public function add(Request $request)
@@ -46,6 +48,13 @@ class VisitorController extends Controller
            $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
            $visitor= Visitor::where('email',$email)->get()->first();
                   }else{
+
+      $data=[
+        'name'=> $request->get('name'),
+        'code'=> $first,
+        'email' => $request->get('email')
+      ];
+      Mail::to($request->get('email'))->send(new codeEmail($data));
 
      $visitor  = new Visitor([
                     'name' => $request->get('name'),
