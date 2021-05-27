@@ -102,6 +102,20 @@
       <path value="$PROJECT_DIR$/VMS/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/VMS/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/VMS/vendor/paypal/rest-api-sdk-php" />
+      <path value="$PROJECT_DIR$/VMS/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/VMS/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/VMS/vendor/php-http/guzzle6-adapter" />
+      <path value="$PROJECT_DIR$/VMS/vendor/twilio/sdk" />
+      <path value="$PROJECT_DIR$/VMS/vendor/vonage/nexmo-bridge" />
+      <path value="$PROJECT_DIR$/VMS/vendor/vonage/client-core" />
+      <path value="$PROJECT_DIR$/VMS/vendor/vonage/client" />
+      <path value="$PROJECT_DIR$/VMS/vendor/laravel/nexmo-notification-channel" />
+      <path value="$PROJECT_DIR$/VMS/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/VMS/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/VMS/vendor/nexmo/laravel" />
+      <path value="$PROJECT_DIR$/VMS/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/VMS/vendor/laminas/laminas-diactoros" />
+      <path value="$PROJECT_DIR$/VMS/vendor/lcobucci/jwt" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

@@ -106,6 +106,20 @@
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/paypal/rest-api-sdk-php" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/php-http/guzzle6-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/twilio/sdk" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/vonage/nexmo-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/vonage/client-core" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/vonage/client" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/laravel/nexmo-notification-channel" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/nexmo/laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/laminas/laminas-zendframework-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/laminas/laminas-diactoros" />
+      <excludeFolder url="file://$MODULE_DIR$/VMS/vendor/lcobucci/jwt" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

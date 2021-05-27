@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Visitor;
+use App\Feedback;
 use App\Mail\codeEmail;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client; ;
@@ -87,6 +88,20 @@ class VisitorController extends Controller
         $visitor->save();
         return redirect('/check-in-success/'.$visitor)->with('success', ' ajouté  ');
 
+  }
+  public function feedback(Request $request)
+  {
+
+    $feedback  = new Feedback([
+
+      'comments' => $request->get('comment'),
+      'rating' => $request->get('experience'),
+      'id_user' => auth()->user()->id,
+      'id_visitor' => $request->get('id_vistor'),
+     ]);
+
+  $feedback->save();
+  return view('feedback');
   }
  
 }
