@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::POST('contactcontroller','ContactController@index');
 Route::post('pay','PaymentController@Paywithpaypal')->name('pay');
-Route::get('/Status','PaymentController@Status')->name('Status');
 Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
 
 
@@ -31,6 +30,7 @@ Route::get('/privacy', function () {
 });
 
 Auth::routes();
+Route::get('/Status','PaymentController@Status')->name('Status');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::get('/visitor', 'HomeController@visitor')->name('visitor');
@@ -39,6 +39,9 @@ Route::get('/checkin', 'HomeController@checkin')->name('checkin');
 Route::POST('/checkinadd','VisitorController@add')->name('visitor.add');
 Route::POST('/checkoutsucess','HomeController@checkoutsuccess')->name('visitor.checkout');
 Route::get('/checkout', 'HomeController@checkout')->name('checkout');
+
+Route::get('/search-record','HomeController@search');
+Route::get('/search-recordvisitor','HomeController@searchvisitor');
 
 
 

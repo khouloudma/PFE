@@ -178,7 +178,7 @@ The above copyright notice and this permission notice shall be included in all c
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a> Khouloud</a>
+                  <i class="material-icons">person</i><a> {{ auth()->user()->name }}</a>
 
                   <p class="d-lg-none d-md-block">
                     Account

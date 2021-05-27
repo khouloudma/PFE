@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Visitor;
 use Illuminate\Http\Request;
-use Twilio\Rest\Client; 
+use Twilio\Rest\Client; ;
 use DB;
 
 class VisitorController extends Controller
@@ -40,16 +40,13 @@ class VisitorController extends Controller
         'email' => ['required', 'string', 'email', 'max:255'],
         'phone' => ['required', 'integer','min:1000000000','max:99999999999'],
         'purpose' => ['required', 'string', 'max:1500','min:4'],
-      ]);dd($request);
-      $email=$request->get('email');
-          if($visitor= Visitor::where('email',$email)){//old visitor
-            $visitor= Visitor::where('email',$email)->get();
-//hethy tmchy jawha behy 
-            $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1')]);
-dd('t3adet supposé gdim');
-          }elseif(empty($visitor)){
+      ]);
+        $email=$request->get('email');
+          if(Visitor::where('email', '=', $request->get('email'))->exists()){
+           $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
+           $visitor= Visitor::where('email',$email)->get()->first();
+                  }else{
 
-            dd('tchuf fyh jdid');
      $visitor  = new Visitor([
                     'name' => $request->get('name'),
                     'phone' => $request->get('phone'),
@@ -57,7 +54,8 @@ dd('t3adet supposé gdim');
                     'purpose' => $request->get('purpose'),
                     'visitor_image'=> $request->get('visitor_image'),
                     'code'=> $first,
-                   'frequentlyVisted'=> '0',
+                   'frequentlyVisted'=> '1',
+                   'id_user'=>$request->get('id_user'),
 
                 ]); 
               $visitor->save();}

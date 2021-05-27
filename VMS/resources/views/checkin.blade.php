@@ -69,6 +69,7 @@ video {
                             <p style="color:red;">{{$message}}</p>
                             @enderror
                         </div>
+                        <input type="text" hidden='true' name="id_user" id='id_user' value='{{auth()->user()->id }}'>
                       
                         <div class="form-group d-flex justify-content-end mt-5">
                                  <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>                        </div>

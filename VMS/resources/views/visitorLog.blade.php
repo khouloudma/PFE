@@ -144,9 +144,10 @@ Visitor  log
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form action="{{url('/search-recordvisitor')}}" methode="get">
+                  {{csrf_field()}}
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
+                <input type="text" name='name' value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -180,7 +181,7 @@ Visitor  log
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a> Khouloud</a>
+                  <i class="material-icons">person</i><a>{{ auth()->user()->name }}</a>
 
                   <p class="d-lg-none d-md-block">
                     Account
@@ -211,11 +212,9 @@ Visitor  log
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead class="">
-                       
-                        <th>
-                          ID
+                      <th>
+                          Avatar
                         </th>
-                       
                         <th>
                           Name
                         </th>
@@ -239,7 +238,7 @@ Visitor  log
                     @if(isset($visitor))
                       @foreach($visitor as $vis)
                         <tr>
-                        <td>{{$vis->id}}</td>
+                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_image}}" ></td>
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>

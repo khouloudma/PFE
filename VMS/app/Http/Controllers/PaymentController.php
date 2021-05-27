@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\Config\paypal;
+use App\Providers\RouteServiceProvider;
 use Session;
 use App\User;
 use PayPal\Api\PaymentExecution;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use PayPal\Api\Amount;
+use RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use URL;
 use Redirect;
 use PayPal\Api\Details;
@@ -154,8 +156,9 @@ class PaymentController extends Controller
         'plan' => $request['plan'],
         'password' => Hash::make($request['password']),]);
     $user->save();
-    $user = auth()->user();
-    return view('/home', compact('user'));
+    Auth::login($user);
+    return  view('home',compact('user'));
+
     }
     \Session::put('error', 'Paiement échoué');
   //  return Redirect::route('/pay');

@@ -18,9 +18,9 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-10">
                 <div class="login-wrap p-4 p-md-5">
-                    <center><h1>Dear visitor you'are checked in succesfully </h1></center>
+                    <center><h1>Dear {{$visitor->name}} you'are checked in succesfully </h1></center>
                     <br><br><br>
-            
+
                           <br><br><br> 
                         <a href="/home">dashboard</a>
                 </div>

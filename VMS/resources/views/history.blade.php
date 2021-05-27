@@ -142,9 +142,10 @@ History        </a></div>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form action="{{url('/search-record')}}" methode="get">
+                  {{csrf_field()}}
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
+                <input type="text"  class="form-control" name='name' placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -178,7 +179,7 @@ History        </a></div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a> Khouloud</a>
+                  <i class="material-icons">person</i><a> {{ auth()->user()->name }}</a>
 
                   <p class="d-lg-none d-md-block">
                     Account
@@ -207,12 +208,10 @@ History        </a></div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-hover">
-                      <thead class="">
-                       
+                      <thead class=""> 
                         <th>
-                          ID
+                        Avatar
                         </th>
-                       
                         <th>
                           Name
                         </th>
@@ -231,18 +230,23 @@ History        </a></div>
                         <th>
                           Action
                         </th>
+                        <th>
+                        Visits frequency
+                        </th>
                       </thead>
                       <tbody>
                     @if(isset($visitor))
                       @foreach($visitor as $vis)
                         <tr>
-                        <td>{{$vis->id}}</td>
+                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_image}}" ></td>
                         <td>{{$vis->name}}</td>
-                        <td>{{$vis->phone}}</td>
+                        <td>+{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
                         <td>{{$vis->created_at}}</td>
                         <td>{{$vis->checkout_date}}</td>
                         <td>{{$vis->purpose}}</td>
+                        <td>{{$vis->frequentlyVisted}}</td>
+
                         </tr>
                       @endforeach
                     @endif
