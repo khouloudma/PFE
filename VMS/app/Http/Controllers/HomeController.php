@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\visitor;
 use App\User;
 use Session;
+use App\Feedback;
+
 
 
 class HomeController extends Controller
@@ -27,9 +29,13 @@ class HomeController extends Controller
     public function index()
 
     {
-        $user = User::all();
-
-        return view('home',compact('user'));
+        $user = auth()->user();
+        $topVisited_id=Visitor::where('id_user',$user->id)->max('frequentlyVisted');
+        $topVisited_list=Visitor::where('id_user',$user->id)->whereBetween('frequentlyVisted', array(1, $topVisited_id))->orderBy('frequentlyVisted', 'DESC')
+        ->limit('3')->get();
+        $vistortop= Visitor::where('id_user',$user->id)->where('frequentlyVisted',$topVisited_id)->get()->first();
+        $feedback=Feedback::where('id_user', $user->id)->get();
+        return view('home')->with(compact('user','feedback','vistortop','topVisited_list'));
     }
     public function profile()
     {

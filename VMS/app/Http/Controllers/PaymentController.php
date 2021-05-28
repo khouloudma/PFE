@@ -154,6 +154,7 @@ class PaymentController extends Controller
         'Category_field' => $request['Category_field'],
         'Phone_number' => $request['Phone_number'],
         'plan' => $request['plan'],
+        'role' => 'entreprise',
         'password' => Hash::make($request['password']),]);
     $user->save();
     Auth::login($user);

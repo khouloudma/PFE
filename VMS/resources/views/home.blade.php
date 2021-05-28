@@ -18,7 +18,8 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="">
+<body class="">    
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -194,15 +195,17 @@
             <div class="col-lg-6 col-md-12">
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">person</i>
+                  <div style=" border-radius: 28px;height: 76px;width: 78px;" class="card-icon">@if(isset($vistor))
+                    <img style="border-radius: 28px;height: 76px;width: 78px;margin-top: -15px;margin-left: -15px;" class="material-icons" src="{{$vistortop->visitor_image}}" alt="">@endif
                   </div>
                   <p class="card-category">Top frequent Visitor</p>
-                  <h3 class="card-title"></h3>
+                  @if(isset($vistortop))
+                  <h3 class="card-title">{{$vistortop->name}}</h3>@endif
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">date_range</i> 
+                    <i class="material-icons">date_range</i>  @if(isset($vistortop))
+                    <h4>last visit :{{$vistortop->created_at}}</h4>@endif
                   </div>
                 </div>
               </div>
@@ -289,8 +292,23 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <table class="table">
+                        <thead class="text-warning">
+                          <th>
+                            Feedback
+                          </th>
+                          <th>
+                            rate
+                          </th>
+                        </thead>
                         <tbody>
-                          
+                        @if(isset($feedback))
+                        @foreach($feedback as $feed)
+                          <tr>
+                          <td>{{$feed->comments}}</td>
+                          <td>{{$feed->rating}}</td>
+                          </tr>
+                        @endforeach  
+                        @endif                        
                         </tbody>
                       </table>
                     </div>
@@ -308,12 +326,24 @@
                 <div class="card-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-warning">
-                      <th>ID</th>
                       <th>Name</th>
                       <th>email</th>
                       <th>phone</th>
+                      <th>Last check-in date</th>
+
                     </thead>
                     <tbody>
+                    @if(isset($topVisited_list))
+                    @foreach($topVisited_list as $top)
+                    <tr>
+                    <td>{{$top->name}}</td>
+                    <td>{{$top->email}}</td>
+                    <td>{{$top->phone}}</td>
+                    <td>{{$top->created_at}}</td>
+                  
+                    </tr>
+                    @endforeach
+                    @endif
                     </tbody>
                   </table>
                 </div>
@@ -376,6 +406,7 @@
       </ul>
     </div>
   </div>
+  
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
