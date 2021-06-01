@@ -28,14 +28,15 @@ class HomeController extends Controller
      */
     public function index()
 
-    {
+    {  
         $user = auth()->user();
+        $visitor = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->count();
         $topVisited_id=Visitor::where('id_user',$user->id)->max('frequentlyVisted');
         $topVisited_list=Visitor::where('id_user',$user->id)->whereBetween('frequentlyVisted', array(1, $topVisited_id))->orderBy('frequentlyVisted', 'DESC')
         ->limit('3')->get();
         $vistortop= Visitor::where('id_user',$user->id)->where('frequentlyVisted',$topVisited_id)->get()->first();
         $feedback=Feedback::where('id_user', $user->id)->get();
-        return view('home')->with(compact('user','feedback','vistortop','topVisited_list'));
+        return view('home')->with(compact('user','feedback','vistortop','topVisited_list','visitor'));
     }
     public function profile()
     {
@@ -43,8 +44,9 @@ class HomeController extends Controller
     }
     public function visitor()
     {   $user = auth()->user();
+        $allusers=User::where('role','entreprise')->get();
         $visitor = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->get();
-        return view('visitorLog',compact('visitor'));
+        return view('visitorLog',compact('visitor','allusers'));
       
     }
     public function history()
@@ -101,4 +103,10 @@ class HomeController extends Controller
             return view('visitorLog',compact('visitor'));
         
     }
+    public function removeUser($id)
+    {   
+         User::where('id',$id)->delete();
+        return redirect()->back();
+
+	}
 }

@@ -28,7 +28,13 @@ Visitor  log
   <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+
+
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
 
 <body class="">
   <div class="wrapper ">
@@ -43,7 +49,27 @@ Visitor  log
         </a></div>
       <div class="sidebar-wrapper">
       <ul class="nav">
+      @if(auth()->user()->role=='admin')
+          <li class="nav-item   ">
+            <a class="nav-link" href="home">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item  active ">
+            <a class="nav-link" href="visitor">
+              <i class="material-icons">person</i>
+              <p>your entreprises</p>
+            </a>
+          </li>
           <li class="nav-item  ">
+          <form  id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf</form>
+
+            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
+          </li>
+          @else
+          <li class="nav-item   ">
             <a class="nav-link" href="home">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
@@ -127,6 +153,7 @@ Visitor  log
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
           </li>
+          @endif
         </ul>
       </div>
     </div>
@@ -135,7 +162,7 @@ Visitor  log
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Dashboard</a>
+            <a class="navbar-brand" href="javascript:;">Visitor Log</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -144,16 +171,10 @@ Visitor  log
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form action="{{url('/search-recordvisitor')}}" methode="get">
-                  {{csrf_field()}}
               <div class="input-group no-border">
-                <input type="text" name='name' value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
-                </button>
               </div>
-            </form>
+            
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
@@ -188,8 +209,8 @@ Visitor  log
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="/profile">Profile</a>
+                  <a class="dropdown-item" href="/profile">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><form  id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf</form><p> {{ __('Logout') }}</p></a>  </a>
                 </div>
@@ -204,13 +225,69 @@ Visitor  log
           <div class="row">
             <div class="col-md-12">
               <div class="card card-plain">
+              @if(auth()->user()->role=='admin')
                 <div class="card-header card-header-primary">
+                  <h4 class="card-title mt-0"> Your entreprises </h4>
+                  <p class="card-category"> Check daily entreprise's details</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="">
+                     
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Phone number
+                        </th>
+                        <th>
+                          Email adress
+                        </th>
+                        <th>
+                          company name
+                        </th>
+                         <th>
+                          Country
+                        </th>
+                        <th>
+                          category field
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>
+                      @foreach($allusers as $user)
+                        <tr>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->Phone_number}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->Company_name}}</td>
+                        <td>{{$user->Country}}</td>
+                        <td>{{$user->Category_field}}</td>
+                        <td><a href="javascript:void(0)"   onclick="openchoices({{$user->id}})"  class="btn1" >Edit</a></td><br>
+                        <td><div class="fm-input "  style="display: none;" id="H{{$user->id}}">hehy</div></td>
+                        <td><form action="/remove_user/{{$user->id}}" method="POST">
+                              {{ method_field('POST') }}
+                              @csrf
+                               <input type="hidden" name="_method" value="POST">      
+                                <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form></td>
+                      
+                        </tr>
+                      @endforeach
+                    
+                      </tbody> </table>
+                      <center><button>Add new user Manually </button></center>
+                  @else
+                    
+                    <div class="card-header card-header-primary">
                   <h4 class="card-title mt-0"> Your visitors </h4>
                   <p class="card-category"> Check daily visitors details</p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table id='list' class="table table-hover">
                       <thead class="">
                       <th>
                           Avatar
@@ -248,8 +325,8 @@ Visitor  log
                         </tr>
                       @endforeach
                     @endif
-                      </tbody>
-                    </table>
+                      </tbody> 
+                    </table>@endif
                   </div>
                 </div>
               </div>
@@ -348,7 +425,25 @@ Visitor  log
   <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+
+
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> 
+
   <script>
+         function openchoices(idwd) {
+                  var x = document.getElementById("H"+idwd);
+                      if (x.style.display == "block") {
+                          x.style.display = "none";} 
+                      else {x.style.display = "block";}};
+
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');
@@ -518,6 +613,49 @@ Visitor  log
         });
       });
     });
+    
+    $(document).ready(function() {
+        $('#list').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+ 
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+ 
+                // Total over all pages
+                total = api
+                    .column( 3 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+ 
+                // Total over this page
+                pageTotal = api
+                    .column( 3, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+ 
+                // Update footer
+                $( api.column( 3 ).footer() ).html(
+                  ' ₱'+pageTotal // +' ( ₱'+ total + ')' ouput the total of all pages //
+                );
+            }
+        } );
+    } );
+
+
   </script>
 </body>
 

@@ -27,6 +27,8 @@ History  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
 </head>
 
 <body class="">
@@ -142,16 +144,10 @@ History        </a></div>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form action="{{url('/search-record')}}" methode="get">
-                  {{csrf_field()}}
+      
               <div class="input-group no-border">
-                <input type="text"  class="form-control" name='name' placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
-                </button>
               </div>
-            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
@@ -207,7 +203,7 @@ History        </a></div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table id='list' class="table table-hover">
                       <thead class=""> 
                         <th>
                         Avatar
@@ -350,6 +346,21 @@ History        </a></div>
   <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
+
+
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+
+
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> 
+
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -520,6 +531,47 @@ History        </a></div>
         });
       });
     });
+      
+    $(document).ready(function() {
+        $('#list').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+ 
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+ 
+                // Total over all pages
+                total = api
+                    .column( 3 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+ 
+                // Total over this page
+                pageTotal = api
+                    .column( 3, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+ 
+                // Update footer
+                $( api.column( 3 ).footer() ).html(
+                  ' ₱'+pageTotal // +' ( ₱'+ total + ')' ouput the total of all pages //
+                );
+            }
+        } );
+    } );
   </script>
 </body>
 

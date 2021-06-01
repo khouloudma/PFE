@@ -32,6 +32,26 @@
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+        @if(auth()->user()->role=='admin')
+          <li class="nav-item active  ">
+            <a class="nav-link" href="home">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="visitor">
+              <i class="material-icons">person</i>
+              <p>your entreprises</p>
+            </a>
+          </li>
+          <li class="nav-item  ">
+          <form  id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf</form>
+
+            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
+          </li>
+        @else
           <li class="nav-item active  ">
             <a class="nav-link" href="home">
               <i class="material-icons">dashboard</i>
@@ -115,7 +135,8 @@
 
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
-          </li>
+          </li>        @endif
+
         </ul>
       </div>
     </div>
@@ -195,11 +216,11 @@
             <div class="col-lg-6 col-md-12">
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
-                  <div style=" border-radius: 28px;height: 76px;width: 78px;" class="card-icon">@if(isset($vistor))
+                  <div style=" border-radius: 28px;height: 76px;width: 78px;" class="card-icon">@if(isset($vistortop))
                     <img style="border-radius: 28px;height: 76px;width: 78px;margin-top: -15px;margin-left: -15px;" class="material-icons" src="{{$vistortop->visitor_image}}" alt="">@endif
                   </div>
                   <p class="card-category">Top frequent Visitor</p>
-                  @if(isset($vistortop))
+                   @if(isset($vistortop))
                   <h3 class="card-title">{{$vistortop->name}}</h3>@endif
                 </div>
                 <div class="card-footer">
@@ -216,8 +237,8 @@
                   <div class="card-icon">
                     <i class="material-icons">event</i>
                   </div>
-                  <p class="card-category">Top Visited Event</p>
-                  <h3 class="card-title"></h3>
+                  <p class="card-category">number of present visitors</p>
+                  <h3 class="card-title">{{$visitor}}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">

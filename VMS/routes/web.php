@@ -18,18 +18,18 @@ Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
 
 
 Route::get('/','WelcomeController@index');
-/* Route::get('/contact', function () {
+/Route::get('/contact', function () {
     return view('contact');
 }); // tha3tly lpage bch n3awdha
- */
-Route::get('/features', function () {
+
+ Route::get('/features', function () {
     return view('features');
 });
 Route::get('/privacy', function () {
     return view('privacy'); //front not fixedyet
 });
-
 Auth::routes();
+Route::post('/remove_user/{id}','HomeController@removeUser');
 Route::get('/Status','PaymentController@Status')->name('Status');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile')->name('profile');
@@ -43,7 +43,6 @@ Route::post('/feedback','VisitorController@feedback');
 
 Route::get('/search-record','HomeController@search');
 Route::get('/search-recordvisitor','HomeController@searchvisitor');
-
-
+ 
 
 

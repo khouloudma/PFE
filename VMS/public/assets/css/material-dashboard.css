@@ -19758,3 +19758,41 @@ Copyright (c) 2015 Daniel Eden
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+.btn1 {
+border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #614e58;
+    font-weight: 800;
+    font-size: 14px;
+    background-color: #eee;
+    padding: 12px 51px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px #6c757d;
+    width: 157px;
+}
+
+.btn1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color:white;
+  height: 490%;
+  width: 140%;
+  background: #ff6279e6;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn1:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
