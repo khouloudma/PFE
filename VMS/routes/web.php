@@ -16,15 +16,15 @@ Route::POST('contactcontroller','ContactController@index');
 Route::post('pay','PaymentController@Paywithpaypal')->name('pay');
 Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
 
-
+Route::get('/features', function () {
+    return view('features');
+});
 Route::get('/','WelcomeController@index');
 Route::get('/contact', function () {
     return view('contact');
 }); // tha3tly lpage bch n3awdha
 
- Route::get('/features', function () {
-    return view('features');
-});
+
 Route::get('/privacy', function () {
     return view('privacy'); //front not fixedyet
 });

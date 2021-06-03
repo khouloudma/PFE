@@ -42,7 +42,7 @@ class VisitorController extends Controller
 
            $visitor= Visitor::where('email',$email)->get()->first();
 
-         /*   $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
+          $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
            $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
            $name=$request->get('name');
            $client = new Client($sid, $token);
@@ -52,9 +52,9 @@ class VisitorController extends Controller
            'from' => '15403089072', // From a valid Twilio number
            'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
            ]
-       ); */  
+       );  
                   }else{
-                  /*   $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
+                    $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
                     $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
                     $name=$request->get('name');
                     $client = new Client($sid, $token);
@@ -64,7 +64,7 @@ class VisitorController extends Controller
                     'from' => '15403089072', // From a valid Twilio number
                     'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
                     ]
-                );  */ 
+                );  
 
       $data=[
         'name'=> $request->get('name'),

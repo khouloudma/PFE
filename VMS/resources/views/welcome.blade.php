@@ -34,7 +34,7 @@
                             <div class="hero-caption">
                                 <h1>The ultimate visitor mangement system</h1>
                                 <p stye="width: 531px;">We build effective strategies to help you reach customers and prospects across the entire web,Empower your employees, visitors, and contractors to return safely while staying compliant and respecting privacy globally.</p>
-                                <a href="s/features" class="btn_0 hero-btn">Explore Services</a>
+                                <a href="/features" class="btn_0 hero-btn">Explore Services</a>
                             </div>
                         </div>
                         <div class="offset-xl-2 col-lg-5 col-md-6 position-relative">
