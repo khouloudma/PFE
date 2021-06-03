@@ -18,7 +18,7 @@ Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
 
 
 Route::get('/','WelcomeController@index');
-/Route::get('/contact', function () {
+Route::get('/contact', function () {
     return view('contact');
 }); // tha3tly lpage bch n3awdha
 
@@ -40,6 +40,7 @@ Route::POST('/checkinadd','VisitorController@add')->name('visitor.add');
 Route::POST('/checkoutsucess','HomeController@checkoutsuccess')->name('visitor.checkout');
 Route::get('/checkout', 'HomeController@checkout')->name('checkout');
 Route::post('/feedback','VisitorController@feedback');
+Route::get('/forms','HomeController@forms');
 
 Route::get('/search-record','HomeController@search');
 Route::get('/search-recordvisitor','HomeController@searchvisitor');

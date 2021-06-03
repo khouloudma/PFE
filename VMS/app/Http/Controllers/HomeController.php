@@ -109,4 +109,10 @@ class HomeController extends Controller
         return redirect()->back();
 
 	}
+    public function forms()
+    {   
+        
+        return view('forms');
+
+	}
 }

@@ -27,17 +27,7 @@ class VisitorController extends Controller
     }
         
         $first=$uniques[1];
-         /*  $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
-          $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
-          $name=$request->get('name');
-          $client = new Client($sid, $token);
-          $message = $client->messages->create(
-          $request->get('phone'), // Text this number
-          [
-          'from' => '15403089072', // From a valid Twilio number
-          'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
-          ]
-      );  */ 
+       
       $validateData=$request->validate([
         'name' => ['required', 'string', 'max:255' ,'min:2'],
         'email' => ['required', 'string', 'email', 'max:255'],
@@ -47,8 +37,34 @@ class VisitorController extends Controller
         $email=$request->get('email');
           if(Visitor::where('email', '=', $request->get('email'))->exists()){
            $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
+           $visitor= Visitor::where('email',$email)->update(['checkout_date' => NULL]);
+           $visitor= Visitor::where('email',$email)->update(['purpose' => $request->get('purpose')]);
+
            $visitor= Visitor::where('email',$email)->get()->first();
+
+         /*   $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
+           $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
+           $name=$request->get('name');
+           $client = new Client($sid, $token);
+           $message = $client->messages->create(
+           $request->get('phone'), // Text this number
+           [
+           'from' => '15403089072', // From a valid Twilio number
+           'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
+           ]
+       ); */  
                   }else{
+                  /*   $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
+                    $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
+                    $name=$request->get('name');
+                    $client = new Client($sid, $token);
+                    $message = $client->messages->create(
+                    $request->get('phone'), // Text this number
+                    [
+                    'from' => '15403089072', // From a valid Twilio number
+                    'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
+                    ]
+                );  */ 
 
       $data=[
         'name'=> $request->get('name'),

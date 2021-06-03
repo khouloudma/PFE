@@ -1,14 +1,4 @@
-<!--
-=========================================================
-Material Dashboard - v2.1.2
-=========================================================
 
-Product Page: https://www.creative-tim.com/product/material-dashboard
-Copyright 2020 Creative Tim (https://www.creative-tim.com)
-Coded by Creative Tim
-
-=========================================================
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,9 +7,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-Visitor  log
-  </title>
+ 
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -28,15 +16,13 @@ Visitor  log
   <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
-
+  <link href="../css/toggle.css" rel="stylesheet" />
 
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
 
-<body class="">
+
+<body class="">    
+
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
@@ -44,38 +30,18 @@ Visitor  log
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Visitor log
+      <div class="logo"><a  class="simple-text logo-normal">
+          Welcome
         </a></div>
       <div class="sidebar-wrapper">
-      <ul class="nav">
-      @if(auth()->user()->role=='admin')
-          <li class="nav-item   ">
+        <ul class="nav">
+          <li class="nav-item ">
             <a class="nav-link" href="home">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item  active ">
-            <a class="nav-link" href="visitor">
-              <i class="material-icons">person</i>
-              <p>your entreprises</p>
-            </a>
-          </li>
-          <li class="nav-item  ">
-          <form  id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf</form>
-
-            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
-          </li>
-          @else
-          <li class="nav-item   ">
-            <a class="nav-link" href="home">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item active ">
+          <li class="nav-item ">
             <a class="nav-link" href="visitor">
               <i class="material-icons">person</i>
               <p>Visitor log</p>
@@ -117,8 +83,8 @@ Visitor  log
               <p>Evacuation</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="">
+          <li class="nav-item  active  ">
+            <a class="nav-link" href="/forms">
             <i class="material-icons">person</i>
               <p>Customized Forms</p>
             </a>
@@ -152,8 +118,8 @@ Visitor  log
 
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
-          </li>
-          @endif
+          </li>       
+
         </ul>
       </div>
     </div>
@@ -162,7 +128,7 @@ Visitor  log
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Visitor Log</a>
+            <a class="navbar-brand" href="javascript:;">Customized your Forms</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -171,10 +137,15 @@ Visitor  log
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
               <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
+                </button>
               </div>
-            
+            </form>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
@@ -202,17 +173,19 @@ Visitor  log
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i><a>{{ auth()->user()->name }}</a>
+                  <i class="material-icons">person</i><a> {{ auth()->user()->name }}
+</a>
 
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="/profile">Profile</a>
-                  <a class="dropdown-item" href="/profile">Settings</a>
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><form  id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf</form><p> {{ __('Logout') }}</p></a>  </a>
+
                 </div>
               </li>
             </ul>
@@ -220,123 +193,133 @@ Visitor  log
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card card-plain">
-              @if(auth()->user()->role=='admin')
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Your entreprises </h4>
-                  <p class="card-category"> Check daily entreprise's details</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                     
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Phone number
-                        </th>
-                        <th>
-                          Email adress
-                        </th>
-                        <th>
-                          company name
-                        </th>
-                         <th>
-                          Country
-                        </th>
-                        <th>
-                          category field
-                        </th>
-                        <th>
-                          Action
-                        </th>
-                      </thead>
-                      <tbody>
-                      @foreach($allusers as $user)
-                        <tr>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->Phone_number}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->Company_name}}</td>
-                        <td>{{$user->Country}}</td>
-                        <td>{{$user->Category_field}}</td>
-                        <td><a href="javascript:void(0)"   onclick="openchoices({{$user->id}})"  class="btn1" >Edit</a></td><br>
-                        <td><div class="fm-input "  style="display: none;" id="H{{$user->id}}">hehy</div></td>
-                        <td><form action="/remove_user/{{$user->id}}" method="POST">
-                              {{ method_field('POST') }}
-                              @csrf
-                               <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form></td>
-                      
-                        </tr>
-                      @endforeach
-                    
-                      </tbody> </table>
-                      <center><button>Add new user Manually </button></center>
-                  @else
-                    
-                    <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Your visitors </h4>
-                  <p class="card-category"> Check daily visitors details</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table id='list' class="table table-hover">
-                      <thead class="">
-                      <th>
-                          Avatar
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Phone number
-                        </th>
-                        <th>
-                          Email adress
-                        </th>
-                        <th>
-                          Check-in
-                        </th>
-                         <th>
-                          Check-out
-                        </th>
-                        <th>
-                          Action
-                        </th>
-                      </thead>
-                      <tbody>
-                    @if(isset($visitor))
-                      @foreach($visitor as $vis)
-                        <tr>
-                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_image}}" ></td>
-                        <td>{{$vis->name}}</td>
-                        <td>{{$vis->phone}}</td>
-                        <td>{{$vis->email}}</td>
-                        <td>{{$vis->updated_at}}</td>
-                        <td>Not yet</td>
-                        <td>{{$vis->purpose}}</td>
-                        </tr>
-                      @endforeach
-                    @endif
-                      </tbody> 
-                    </table>@endif
-                  </div>
-                </div>
-              </div>
+      <br><br><br>
+      <script>function openchoices1(id) {
+                  var x = document.getElementById("K"+id);
+                  var y = document.getElementById("first");
+
+                 if (    x.style.display == "block") {
+                 x.style.display = "none";  y.style.display = "block";} else {x.style.display = "block";y.style.display = "none";}};
+                 function openchoices2(id) {
+                  var x = document.getElementById("B"+id);
+                  var y = document.getElementById("second");
+
+                 if (    x.style.display == "block") {
+                  x.style.display = "none";  y.style.display = "block";} else {x.style.display = "block";y.style.display = "none";}};
+                 function openchoices3(id) {
+                  var x = document.getElementById("C"+id);
+                  var y = document.getElementById("third");
+
+                 if (    x.style.display == "block") {
+                  x.style.display = "none";  y.style.display = "block";} else {x.style.display = "block";y.style.display = "none";}};
+      </script>
+      <center><h2>Add Custom Fields</h2></center>
+      <center><h4>Description to add custom fields</h4></center>
+    <center>  <div style="    width: 528px;">
+    <style>.close {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  padding: 12px 16px;
+  transform: translate(0%, -50%);
+}
+
+.close:hover {background: #bbb;}</style>
+<script>
+/* Get all elements with class="close" */
+var closebtns = document.getElementsByClassName("close");
+var i;
+
+/* Loop through the elements, and hide the parent, when clicked on */
+for (i = 0; i < closebtns.length; i++) {
+  closebtns[i].addEventListener("click", function() {
+    this.parentElement.style.display = 'none';
+  });
+}
+</script>
+      <ul class="list-group">
+      <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Print bagde</label>
+              <label for="required"></label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+           </div>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">camera capture</label>
+              <label for="required"></label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+
+           </div>
+        </li>
+      <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Name field:</label>
+              <input style="width: fit-content;" type="text" class="form-control"  placeholder="Full Name" disabled>
+           </div>
+           
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Phone field:</label>
+              <input style="width: fit-content;" type="text" class="form-control" placeholder="Phone number" disabled>
+           </div>
+           
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Email field:</label>
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Email adress" disabled>
+           </div>
+        </li>
+        <li id="first" name="first" class="list-group-item"><button class="btn_0" onclick="openchoices1({{auth()->user()->id}})">+Add More</button>
+        </li>
+        <div class="fm-input "  style="display: none;" id="K{{auth()->user()->id}}"> 
+          <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Give this field a name</label>
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+           </div>
+            <div>  
+                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
             </div>
-          </div>
+            <li name="second" id="second" class="list-group-item">
+              <button onclick="openchoices2({{auth()->user()->id}})" class="btn_0">+Add More</button>
+              </li>
+          </li>
         </div>
-      </div>
-     
-    </div>
-  </div>
+        <div class="fm-input "  style="display: none;" id="B{{auth()->user()->id}}"> 
+          <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Give this field a name</label>
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+           </div>
+            <div>
+                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
+            </div>
+            <li id="third" name="third"class="list-group-item">
+              <button class="btn_0" onclick="openchoices3({{auth()->user()->id}})">+Add More</button>
+            </li>
+          </li>
+        </div>
+        <div class="fm-input "  style="display: none;" id="C{{auth()->user()->id}}"> 
+          <li class="list-group-item list-group-item-light">
+            <div class="form-group">
+              <label style="color:black;"class="label" for="name">Give this field a name</label>
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+           </div>
+            <div>
+                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
+            </div>
+            <button  class="btn_0" >Save</button>
+          </li>
+        </div>
+       </ul>
+      </div></center>
+    
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
@@ -378,11 +361,19 @@ Visitor  log
             <img src="../assets/img/sidebar-4.jpg" alt="">
           </a>
         </li>
-        
+        <!-- <li class="header-title">Want more components?</li>
+            <li class="button-container">
+                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
+                  Get the pro version
+                </a>
+            </li> -->
+
       </ul>
     </div>
   </div>
+  
   <!--   Core JS Files   -->
+  <script src="../js/toggle.js"></script>
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
@@ -416,7 +407,6 @@ Visitor  log
   <!-- Library for adding dinamically elements -->
   <script src="../assets/js/plugins/arrive.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
   <script src="../assets/js/plugins/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -425,25 +415,35 @@ Visitor  log
   <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-  
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
-
-
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> 
-
+  <style>
+  .btn.slider-btn, .btn_0, .btn_10, .pricing-card-area .single-card .card-bottom .get-btn {
+    background: #ff4495;
+    background: -moz-linear-gradient(top, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+    background: -webkit-linear-gradient(top, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+    background: linear-gradient(to bottom, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4495', endColorstr='#7db9e8', GradientType=0);
+}.btn_0 {
+    border: none;
+    padding: 11px 36px !important;
+    text-transform: capitalize !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 25px;
+    -webkit-transition: all .5s ease-out 0s;
+    -moz-transition: all .5s ease-out 0s;
+    -ms-transition: all .5s ease-out 0s;
+    -o-transition: all .5s ease-out 0s;
+    transition: all .5s ease-out 0s;
+}
+a, button {
+    color: #fff;
+    outline: medium none;
+}</style>
   <script>
-         function openchoices(idwd) {
-                  var x = document.getElementById("H"+idwd);
-                      if (x.style.display == "block") {
-                          x.style.display = "none";} 
-                      else {x.style.display = "block";}};
-
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');
@@ -613,50 +613,16 @@ Visitor  log
         });
       });
     });
-    
+  </script>
+  <script>
     $(document).ready(function() {
-        $('#list').DataTable( {
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            "footerCallback": function ( row, data, start, end, display ) {
-                var api = this.api(), data;
- 
-                // Remove the formatting to get integer data for summation
-                var intVal = function ( i ) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '')*1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
- 
-                // Total over all pages
-                total = api
-                    .column( 3 )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
- 
-                // Total over this page
-                pageTotal = api
-                    .column( 3, { page: 'current'} )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
- 
-                // Update footer
-                $( api.column( 3 ).footer() ).html(
-                  ' ₱'+pageTotal // +' ( ₱'+ total + ')' ouput the total of all pages //
-                );
-            }
-        } );
-    } );
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
 
-
+    });
   </script>
 </body>
 
 </html>
+
+
