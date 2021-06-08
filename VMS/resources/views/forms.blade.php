@@ -238,17 +238,19 @@ for (i = 0; i < closebtns.length; i++) {
   });
 }
 </script>
-      <ul class="list-group">
-      <li class="list-group-item list-group-item-light">
+      <form method="POST" enctype="multipart/form-data"  action="/test" class="signup-form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">  
+            <ul class="list-group"> 
+           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Print bagde</label>
-              <label for="required"></label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+              <label for="required"></label><input  type="checkbox" name="requirePrinter" id="requirePrinter"  checked data-toggle="toggle" data-size="sm">
            </div>
         </li>
         <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">camera capture</label>
-              <label for="required"></label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
+              <label for="required"></label><input name="requireCapture" id="requireCapture"  type="checkbox" checked data-toggle="toggle" data-size="sm">
 
            </div>
         </li>
@@ -269,7 +271,7 @@ for (i = 0; i < closebtns.length; i++) {
         <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Email field:</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Email adress" disabled>
+              <input style="width: fit-content;" type="text" class="form-control" name='mail' id='mail' placeholder="Email adress" disabled>
            </div>
         </li>
         <li id="first" name="first" class="list-group-item"><button class="btn_0" onclick="openchoices1({{auth()->user()->id}})">+Add More</button>
@@ -281,8 +283,8 @@ for (i = 0; i < closebtns.length; i++) {
               <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
            </div>
             <div>  
-                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
-                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="requirefield1">required</label><input  name="requirefield1" checked id="requirefield1" type="checkbox"  data-toggle="toggle" >
+                <label for="enablefield1">enable</label><input  id="enablefield1" name="enablefield1"type="checkbox" checked data-toggle="toggle" >
             </div>
             <li name="second" id="second" class="list-group-item">
               <button onclick="openchoices2({{auth()->user()->id}})" class="btn_0">+Add More</button>
@@ -293,11 +295,11 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+              <input style="width: fit-content;" type="text" class="form-control" name='field2' id='field2' placeholder="Give this field a name" required>
            </div>
             <div>
-                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
-                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="requirefield2">required</label><input  name="requirefield2" id="requirefield2" type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="enablefield2">enable</label><input name="enablefield2" id="enablefield2"type="checkbox" checked data-toggle="toggle" data-size="sm">
             </div>
             <li id="third" name="third"class="list-group-item">
               <button class="btn_0" onclick="openchoices3({{auth()->user()->id}})">+Add More</button>
@@ -308,16 +310,16 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+              <input style="width: fit-content;" type="text" class="form-control" name='field3' id='field3' placeholder="Give this field a name" required>
            </div>
             <div>
-                <label for="required">required</label><input name="required" id="required" type="checkbox" checked data-toggle="toggle" data-size="sm">
-                <label for="enable">enable</label><input name="enable"type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="requirefield3">required</label><input name="requirefield3" id="requirefield3" type="checkbox" checked data-toggle="toggle" data-size="sm">
+                <label for="enablefield3">enable</label><input   id="enablefield3" name="enablefield3"type="checkbox" checked data-toggle="toggle" data-size="sm" >
             </div>
             <button  class="btn_0" >Save</button>
           </li>
         </div>
-       </ul>
+       </ul></form>
       </div></center>
     
   <div class="fixed-plugin">

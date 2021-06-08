@@ -301,11 +301,29 @@ Visitor  log
                         <th>
                           Email adress
                         </th>
+                        @if($parameter->enablefield1=='on')
+                        <th>
+                        {{$parameter->field1}}
+                        </th>
+                        @endif
+                        @if($parameter->enablefield2=='on')
+                        <th>
+                        {{$parameter->field2}}
+                        </th>
+                        @endif
+                        @if($parameter->enablefield3=='on')
+                        <th>
+                        {{$parameter->field3}}
+                        </th>
+                        @endif
                         <th>
                           Check-in
                         </th>
                          <th>
                           Check-out
+                        </th>
+                        <th>
+                          Purpose
                         </th>
                         <th>
                           Action
@@ -319,9 +337,19 @@ Visitor  log
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
+                        <td>{{$vis->field1}}</td>
+                        <td>{{$vis->field2}}</td>
+                        <td>{{$vis->field3}}</td>
                         <td>{{$vis->updated_at}}</td>
                         <td>Not yet</td>
                         <td>{{$vis->purpose}}</td>
+                        <td><form action="/remove_visitor/{{$vis->id}}" method="POST">
+                              {{ method_field('POST') }}
+                              @csrf
+                               <input type="hidden" name="_method" value="POST">      
+                                <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
+                                <a href="#{{$vis->id}}" class="btn btn-lg btn-primary" data-toggle="modal">Edit</a></td>
+                        
                         </tr>
                       @endforeach
                     @endif
@@ -337,6 +365,95 @@ Visitor  log
      
     </div>
   </div>
+  @foreach($visitor as $vis)
+
+  <div class="modal fade" id="{{$vis->id}}" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            
+                            <label class="label" for="name">Full Name</label>
+                            <input type="text" class="form-control" name='name' id='name'placeholder="John Doe" required>
+                            @error('name')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="phone">Phone number</label>
+                            <input type="text" class="form-control" name='phone' id='phone' placeholder="216 93 887 912" required>
+                            @error('phone')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="email">Email Address</label>
+                            <input type="text" class="form-control" id='email' name='email'placeholder="johndoe@gmail.com" required>
+                            @error('email')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
+                        </div>
+                        @if($parameter->enablefield1=='on')
+                          @if($parameter->requirefield1=='on')
+                        <div class="form-group">
+                            <label class="label" for="field1">{{$parameter->field1}}</label>
+                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" required>
+                        </div>
+                         @else
+                        <div class="form-group">
+                            <label class="label" for="field1">{{$parameter->field1}}</label>
+                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" >
+                        </div>
+                        @endif
+                        @endif
+                        @if($parameter->enablefield2=='on')
+                        @if($parameter->requirefield2=='on')
+                        <div class="form-group">
+                            <label class="label" for="field2">{{$parameter->field2}}</label>
+                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" required>
+                        </div>
+                        @else
+                        <div class="form-group">
+                            <label class="label" for="field2">{{$parameter->field2}}</label>
+                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" >
+                        </div>
+                        @endif
+                        @endif
+                        @if($parameter->enablefield3=='on')
+                        @if($parameter->requirefield3=='on')
+                        <div class="form-group">
+                            <label class="label" for="field3">{{$parameter->field3}}</label>
+                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" required>
+                        </div>
+                        @else
+                        <div class="form-group">
+                            <label class="label" for="field3">{{$parameter->field3}}</label>
+                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" >
+                        </div>
+                        @endif
+                        @endif
+                        <div class="form-group">
+                            <label class="label" for="purpose">Purpose</label>
+                            <textarea  class="form-control" name='purpose' id="purpose" required></textarea>
+                            @error('purpose')
+                            <p style="color:red;">{{$message}}</p>
+                            @enderror
+                        </div>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
@@ -428,7 +545,8 @@ Visitor  log
   
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 

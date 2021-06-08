@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Visitor;
+use App\Visit;
 use App\Feedback;
 use App\Mail\codeEmail;
 use Illuminate\Http\Request;
@@ -35,13 +36,16 @@ class VisitorController extends Controller
         'purpose' => ['required', 'string', 'max:1500','min:4'],
       ]);
         $email=$request->get('email');
-          if(Visitor::where('email', '=', $request->get('email'))->exists()){
-           $visitor= Visitor::where('email',$email)->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
-           $visitor= Visitor::where('email',$email)->update(['checkout_date' => NULL]);
-           $visitor= Visitor::where('email',$email)->update(['purpose' => $request->get('purpose')]);
-
-           $visitor= Visitor::where('email',$email)->get()->first();
-
+          if(Visitor::where('email', '=', $request->get('email'))->where('phone', '=', $request->get('phone'))->exists()){
+           $visitor= Visitor::where('email',$email)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
+          }
+          if($request->get('field1'))
+          {$field1=$request->get('field1');}else{$field1='';}
+          if($request->get('field2'))
+          { $field2=$request->get('field2');}else{$field2='';}
+          if($request->get('field1'))
+          {$field3=$request->get('field3');}else{$field3='';}
+           /* 
           $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
            $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
            $name=$request->get('name');
@@ -52,9 +56,24 @@ class VisitorController extends Controller
            'from' => '15403089072', // From a valid Twilio number
            'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
            ]
-       );  
-                  }else{
-                    $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
+       );  */
+       $visit  = new Visit([
+        'name' => $request->get('name'),
+        'phone' => $request->get('phone'),
+        'email' => $request->get('email'),
+        'purpose' => $request->get('purpose'),
+        'visitor_visit_image'=> $request->get('visitor_image'),
+        'code'=> $first,
+        'field1'=> $field1,
+        'field2'=> $field2,
+        'field3'=> $field3,
+
+       'id_user'=>$request->get('id_user'),
+
+    ]); 
+  $visit->save();
+              
+                   /*  $sid = "AC69387f79c7d2b35de37e22396964a699"; // Your Account SID from www.twilio.com/console
                     $token = "dca149c040bb466f31ee6ec25b951199"; // Your Auth Token from www.twilio.com/console
                     $name=$request->get('name');
                     $client = new Client($sid, $token);
@@ -64,9 +83,9 @@ class VisitorController extends Controller
                     'from' => '15403089072', // From a valid Twilio number
                     'body' => 'welcome :'.$name.' '.'this is your code : '.$first,
                     ]
-                );  
+                );   */
 
-      $data=[
+         $data=[
         'name'=> $request->get('name'),
         'code'=> $first,
         'email' => $request->get('email')
@@ -82,29 +101,19 @@ class VisitorController extends Controller
                     'code'=> $first,
                    'frequentlyVisted'=> '1',
                    'id_user'=>$request->get('id_user'),
+                   'field1'=> $field1,
+                   'field2'=> $field2,
+                   'field3'=> $field3,
 
                 ]); 
-              $visitor->save();}
+              $visitor->save();
+             
+      
           
     return view('check-in-succes',compact('visitor'));
 
   }
-  public function store(Request $request)
-  {
-          
-         $visitor  = new Visitor([
-
-            'name' => $request->get('name'),
-            'phone' => $request->get('phone'),
-            'email' => $request->get('email'),
-            'purpose' => $request->get('purpose'),
-            'visitor_image' => $request->get('capture'),
-           ]);
-
-        $visitor->save();
-        return redirect('/check-in-success/'.$visitor)->with('success', ' ajouté  ');
-
-  }
+ 
   public function feedback(Request $request)
   {
 

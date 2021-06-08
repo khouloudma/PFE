@@ -12,5 +12,12 @@ class WelcomeController extends Controller
         return view("welcome",compact('testomonial'));
 
     }
-   
+    public function features() {
+        return view('features');
+    }
+    public function contact() {
+        return view('contact');
+    }
+    public function privacy() {
+        return view('privacy');}
 }

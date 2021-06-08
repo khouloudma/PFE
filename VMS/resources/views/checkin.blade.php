@@ -62,6 +62,45 @@ video {
                             <p style="color:red;">{{$message}}</p>
                             @enderror
                         </div>
+                        @if($parameter->enablefield1=='on')
+                          @if($parameter->requirefield1=='on')
+                        <div class="form-group">
+                            <label class="label" for="field1">{{$parameter->field1}}</label>
+                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" required>
+                        </div>
+                         @else
+                        <div class="form-group">
+                            <label class="label" for="field1">{{$parameter->field1}}</label>
+                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" >
+                        </div>
+                        @endif
+                        @endif
+                        @if($parameter->enablefield2=='on')
+                        @if($parameter->requirefield2=='on')
+                        <div class="form-group">
+                            <label class="label" for="field2">{{$parameter->field2}}</label>
+                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" required>
+                        </div>
+                        @else
+                        <div class="form-group">
+                            <label class="label" for="field2">{{$parameter->field2}}</label>
+                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" >
+                        </div>
+                        @endif
+                        @endif
+                        @if($parameter->enablefield3=='on')
+                        @if($parameter->requirefield3=='on')
+                        <div class="form-group">
+                            <label class="label" for="field3">{{$parameter->field3}}</label>
+                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" required>
+                        </div>
+                        @else
+                        <div class="form-group">
+                            <label class="label" for="field3">{{$parameter->field3}}</label>
+                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" >
+                        </div>
+                        @endif
+                        @endif
                         <div class="form-group">
                             <label class="label" for="purpose">Purpose</label>
                             <textarea  class="form-control" name='purpose' id="purpose" required></textarea>

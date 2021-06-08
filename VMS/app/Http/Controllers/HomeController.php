@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\visitor;
+use App\visit;
 use App\User;
 use Session;
 use App\Feedback;
+use App\parameter;
+use DB;
+
 
 
 
@@ -44,21 +48,32 @@ class HomeController extends Controller
     }
     public function visitor()
     {   $user = auth()->user();
+        $parameter = parameter::where('id_user',$user->id)->first();
         $allusers=User::where('role','entreprise')->get();
         $visitor = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->get();
-        return view('visitorLog',compact('visitor','allusers'));
+        return view('visitorLog',compact('visitor','allusers','parameter'));
       
+    }
+    public function removeVisitor($id)
+    { $visitor= Visitor::where('id',$id)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted - 1')]);
+        Visitor::where('id',$id)->delete();
+        return redirect()->back();
+
+
     }
     public function history()
     {
         $user = auth()->user();
-        $visitor = Visitor::where('id_user',$user->id)->whereNotNull('checkout_date')->get();
-        return view('history',compact('visitor'));
+        $visit = Visit::where('id_user',$user->id)->whereNotNull('checkout_date')->get();
+        return view('history',compact('visit'));
       
     }
     public function checkin()
     {
-        return view('checkin');
+        
+        $user = auth()->user();
+        $parameter = parameter::where('id_user',$user->id)->first();
+        return view('checkin',compact('parameter'));
     }
        public function checkout()
     {
@@ -75,6 +90,7 @@ class HomeController extends Controller
         if($visitor)
         {   
             $visitor = Visitor::where('code',$code)->update(array('checkout_date'=>now()));
+            $visit= Visit::where('code',$code)->update(array('checkout_date'=>now()));
             $visitor = Visitor::where('code',$code)->first();
 
             return view('checkout_success',compact('visitor'));
@@ -115,4 +131,66 @@ class HomeController extends Controller
         return view('forms');
 
 	}
+    public function test(Request $request)
+    { 
+        
+        if(!($request->get('requirefield1'))){
+            $requirefield1='off';
+        }else{
+            $requirefield1='on';
+        }
+        if(!($request->get('requirefield2'))){
+            $requirefield2='off';
+        }else{
+            $requirefield2='on';
+        }
+        if(!($request->get('requirefield3'))){
+            $requirefield3='off';
+        }else{
+            $requirefield3='on';
+        }
+        if(!($request->get('enablefield1'))){
+            $enablefield1='off';
+        }else{
+            $enablefield1='on';
+        }
+        if(!($request->get('enablefield2'))){
+            $enablefield2='off';
+        }else{
+            $enablefield2='on';
+        }  if(!($request->get('enablefield3'))){
+            $enablefield3='off';
+        }else{
+            $enablefield3='on';
+        }
+        if(!($request->get('requireCapture'))){
+            $requireCapture='off';
+        }else{
+            $requireCapture='on';
+        }
+        if(!($request->get('requirePrinter'))){
+            $requirePrinter='off';
+        }else{
+            $requirePrinter='on';
+        }
+        $user = auth()->user();
+
+        $parameter  = new parameter([
+            'field1' => $request->get('field1'),
+            'field2' => $request->get('field2'),
+            'field3' => $request->get('field3'),
+            'requirefield1' => $requirefield1,
+            'requirefield2' => $requirefield2,
+            'requirefield3' => $requirefield3,
+            'enablefield1' => $enablefield1,
+            'enablefield2' => $enablefield2,
+            'enablefield3' => $enablefield3,
+            'id_user' => $user->id,
+            'requireCapture'=> $requireCapture,
+            'requirePrinter'=> $requirePrinter,
+  
+        ]); 
+      $parameter->save();
+      return view('forms',compact('parameter'));
+    }
 }

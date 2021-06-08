@@ -226,22 +226,19 @@ History        </a></div>
                         <th>
                           Action
                         </th>
-                        <th>
-                        Visits frequency
-                        </th>
+                        
                       </thead>
                       <tbody>
-                    @if(isset($visitor))
-                      @foreach($visitor as $vis)
+                    @if(isset($visit))
+                      @foreach($visit as $vis)
                         <tr>
-                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_image}}" ></td>
+                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_visit_image}}" ></td>
                         <td>{{$vis->name}}</td>
                         <td>+{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
                         <td>{{$vis->created_at}}</td>
                         <td>{{$vis->checkout_date}}</td>
                         <td>{{$vis->purpose}}</td>
-                        <td>{{$vis->frequentlyVisted}}</td>
 
                         </tr>
                       @endforeach
