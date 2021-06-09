@@ -32,6 +32,8 @@ Route::get('/visitor', 'HomeController@visitor')->name('visitor');
 Route::get('/history', 'HomeController@history')->name('history');
 Route::get('/checkin', 'HomeController@checkin')->name('checkin');
 Route::POST('/checkinadd','VisitorController@add')->name('visitor.add');
+Route::POST('/visitor_edit/{id}','VisitorController@edit')->name('visitor.edit');
+
 Route::POST('/test','HomeController@test');
 Route::POST('/checkoutsucess','HomeController@checkoutsuccess')->name('visitor.checkout');
 Route::get('/checkout', 'HomeController@checkout')->name('checkout');

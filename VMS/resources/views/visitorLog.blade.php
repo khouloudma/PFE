@@ -34,7 +34,6 @@ Visitor  log
 
 
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
 
 <body class="">
   <div class="wrapper ">
@@ -220,12 +219,12 @@ Visitor  log
         </div>
       </nav>
       <!-- End Navbar -->
+      @if(auth()->user()->role=='admin')
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card card-plain">
-              @if(auth()->user()->role=='admin')
                 <div class="card-header card-header-primary">
                   <h4 class="card-title mt-0"> Your entreprises </h4>
                   <p class="card-category"> Check daily entreprise's details</p>
@@ -280,7 +279,11 @@ Visitor  log
                       </tbody> </table>
                       <center><button>Add new user Manually </button></center>
                   @else
-                    
+                  <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-plain">
                     <div class="card-header card-header-primary">
                   <h4 class="card-title mt-0"> Your visitors </h4>
                   <p class="card-category"> Check daily visitors details</p>
@@ -348,13 +351,13 @@ Visitor  log
                               @csrf
                                <input type="hidden" name="_method" value="POST">      
                                 <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
-                                <a href="#{{$vis->id}}" class="btn btn-lg btn-primary" data-toggle="modal">Edit</a></td>
+                                <a href="#{{$vis->id}}"  class="btn_0" data-toggle="modal">Edit</a></td>
                         
                         </tr>
                       @endforeach
                     @endif
                       </tbody> 
-                    </table>@endif
+                    </table>
                   </div>
                 </div>
               </div>
@@ -365,95 +368,7 @@ Visitor  log
      
     </div>
   </div>
-  @foreach($visitor as $vis)
-
-  <div class="modal fade" id="{{$vis->id}}" >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit</h5>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            
-                            <label class="label" for="name">Full Name</label>
-                            <input type="text" class="form-control" name='name' id='name'placeholder="John Doe" required>
-                            @error('name')
-                            <p style="color:red;">{{$message}}</p>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="label" for="phone">Phone number</label>
-                            <input type="text" class="form-control" name='phone' id='phone' placeholder="216 93 887 912" required>
-                            @error('phone')
-                            <p style="color:red;">{{$message}}</p>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="label" for="email">Email Address</label>
-                            <input type="text" class="form-control" id='email' name='email'placeholder="johndoe@gmail.com" required>
-                            @error('email')
-                            <p style="color:red;">{{$message}}</p>
-                            @enderror
-                        </div>
-                        @if($parameter->enablefield1=='on')
-                          @if($parameter->requirefield1=='on')
-                        <div class="form-group">
-                            <label class="label" for="field1">{{$parameter->field1}}</label>
-                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" required>
-                        </div>
-                         @else
-                        <div class="form-group">
-                            <label class="label" for="field1">{{$parameter->field1}}</label>
-                            <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" >
-                        </div>
-                        @endif
-                        @endif
-                        @if($parameter->enablefield2=='on')
-                        @if($parameter->requirefield2=='on')
-                        <div class="form-group">
-                            <label class="label" for="field2">{{$parameter->field2}}</label>
-                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" required>
-                        </div>
-                        @else
-                        <div class="form-group">
-                            <label class="label" for="field2">{{$parameter->field2}}</label>
-                            <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" >
-                        </div>
-                        @endif
-                        @endif
-                        @if($parameter->enablefield3=='on')
-                        @if($parameter->requirefield3=='on')
-                        <div class="form-group">
-                            <label class="label" for="field3">{{$parameter->field3}}</label>
-                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" required>
-                        </div>
-                        @else
-                        <div class="form-group">
-                            <label class="label" for="field3">{{$parameter->field3}}</label>
-                            <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" >
-                        </div>
-                        @endif
-                        @endif
-                        <div class="form-group">
-                            <label class="label" for="purpose">Purpose</label>
-                            <textarea  class="form-control" name='purpose' id="purpose" required></textarea>
-                            @error('purpose')
-                            <p style="color:red;">{{$message}}</p>
-                            @enderror
-                        </div>
-                    </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
+  @endif
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
@@ -499,6 +414,98 @@ Visitor  log
       </ul>
     </div>
   </div>
+  @foreach($visitor as $vis)
+
+<div class="modal fade" id="{{$vis->id}}" >
+  <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-image: url('images/this.jpg');">
+          <div class="modal-header">
+              <h5 class="modal-title">Edit</h5>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+          <form class="form-horizontal" enctype="multipart/form-data"  role="form" method="POST" action="/visitor_edit/{{$vis->id}}">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <input type="text" hidden='true'name="id" value="{{$vis->id}}">
+                          <label class="label" for="name" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Full Name</label>
+                          <input type="text" class="form-control" name='name' id='name'placeholder="{{$vis->name}}" required>
+                          @error('name')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      <div class="form-group">
+                          <label class="label" for="phone" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Phone number</label>
+                          <input type="text" class="form-control" name='phone' id='phone' placeholder="{{$vis->phone}}" required>
+                          @error('phone')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      <div class="form-group">
+                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="email">Email Address</label>
+                          <input type="text" class="form-control" id='email' name='email'placeholder="{{$vis->email}}" required>
+                          @error('email')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      @if($parameter->enablefield1=='on')
+                        @if($parameter->requirefield1=='on')
+                      <div class="form-group">
+                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
+                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" required>
+                      </div>
+                       @else
+                      <div class="form-group">
+                          <label class="label" for="field1" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' >{{$parameter->field1}}</label>
+                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" >
+                      </div>
+                      @endif
+                      @endif
+                      @if($parameter->enablefield2=='on')
+                      @if($parameter->requirefield2=='on')
+                      <div class="form-group">
+                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
+                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" required>
+                      </div>
+                      @else
+                      <div class="form-group">
+                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
+                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" >
+                      </div>
+                      @endif
+                      @endif
+                      @if($parameter->enablefield3=='on')
+                      @if($parameter->requirefield3=='on')
+                      <div class="form-group">
+                          <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
+                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" required>
+                      </div>
+                      @else
+                      <div class="form-group">
+                          <label class="label" for="field3"  style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
+                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" >
+                      </div>
+                      @endif
+                      @endif
+                      <div class="form-group">
+                          <label class="label" for="purpose" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Purpose</label>
+                          <textarea  class="form-control" name='purpose' id="purpose" required>{{$vis->purpose}}</textarea>
+                          @error('purpose')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                  </div>
+          <div class="modal-footer">
+              <button type="submit"  class="btn_0">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div></form>
+      </div>
+  </div>
+</div>
+@endforeach
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -517,7 +524,6 @@ Visitor  log
   <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
   <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
   <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
   <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
   <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -545,7 +551,6 @@ Visitor  log
   
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 

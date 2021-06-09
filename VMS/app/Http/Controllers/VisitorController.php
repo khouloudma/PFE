@@ -129,4 +129,11 @@ class VisitorController extends Controller
   return view('feedback');
   }
  
+public function edit(Request $request,$id)
+{
+$id1=$request->get('id');
+Visitor::find($id1)->update($request->all());
+return redirect()->back();
+}
+
 }
