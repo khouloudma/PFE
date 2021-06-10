@@ -20,8 +20,8 @@
                 <div class="login-wrap p-4 p-md-5">
                     <center><h1>Dear {{$visitor->name}} you'are checked in succesfully </h1></center>
                     <br><br><br>
-                        @if(auth()->user()->activePrinter=='active')
-                           <center> <button>Print your bagde</button></center>
+                        @if($parameter->requirePrinter=='on')
+                           <center> <button class="btn btn_0 btn-floating">Print your bagde</button></center>
                           <br><br><br>@endif
                         <a href="/home">dashboard</a>
                 </div>

@@ -33,8 +33,8 @@ Route::get('/history', 'HomeController@history')->name('history');
 Route::get('/checkin', 'HomeController@checkin')->name('checkin');
 Route::POST('/checkinadd','VisitorController@add')->name('visitor.add');
 Route::POST('/visitor_edit/{id}','VisitorController@edit')->name('visitor.edit');
-
-Route::POST('/test','HomeController@test');
+Route::POST('/visitor_add','VisitorController@add_visitor')->name('visitor.addManually');
+Route::POST('/test','HomeController@parametrage')->name('parametrage');
 Route::POST('/checkoutsucess','HomeController@checkoutsuccess')->name('visitor.checkout');
 Route::get('/checkout', 'HomeController@checkout')->name('checkout');
 Route::post('/feedback','VisitorController@feedback');

@@ -280,7 +280,7 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" required>
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="Give this field a name" >
            </div>
             <div>  
                 <label for="requirefield1">required</label><input  name="requirefield1" checked id="requirefield1" type="checkbox"  data-toggle="toggle" >
@@ -295,7 +295,7 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field2' id='field2' placeholder="Give this field a name" required>
+              <input style="width: fit-content;" type="text" class="form-control" name='field2' id='field2' placeholder="Give this field a name" >
            </div>
             <div>
                 <label for="requirefield2">required</label><input  name="requirefield2" id="requirefield2" type="checkbox" checked data-toggle="toggle" data-size="sm">
@@ -310,13 +310,13 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field3' id='field3' placeholder="Give this field a name" required>
+              <input style="width: fit-content;" type="text" class="form-control" name='field3' id='field3' placeholder="Give this field a name" >
            </div>
             <div>
                 <label for="requirefield3">required</label><input name="requirefield3" id="requirefield3" type="checkbox" checked data-toggle="toggle" data-size="sm">
                 <label for="enablefield3">enable</label><input   id="enablefield3" name="enablefield3"type="checkbox" checked data-toggle="toggle" data-size="sm" >
             </div>
-            <button  class="btn_0" >Save</button>
+            <button  type="submit" class="btn_0" >Save</button>
           </li>
         </div>
        </ul></form>

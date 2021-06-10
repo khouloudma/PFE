@@ -30,17 +30,17 @@ video {
 
                     <form method="POST" enctype="multipart/form-data"  action="/checkinadd" class="signup-form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group">
+                   @if($parameter->requireCapture=='on') <div class="form-group">
                         <center><div id="wrapper">
                             <video  ></video>
                             <canvas></canvas>
                             <br />
-                            <button id="newphoto">Take A Photo</button>
+                            <button  class="btn btn_0 btn-floating" id="newphoto">Take A Photo</button>
                             <input type="text" hidden='true' value="nothing" id='visitor_image' name='visitor_image'>
                             @error('visitor_image')
                             <p style="color:red;">{{$message}}</p>
                             @enderror
-                            </div></center></div>
+                            </div></center></div>@endif
                         <div class="form-group">
                             <label class="label" for="name">Full Name</label>
                             <input type="text" class="form-control" name='name' id='name'placeholder="John Doe" required>

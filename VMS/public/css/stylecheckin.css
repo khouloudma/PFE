@@ -8294,3 +8294,20 @@ textarea.form-control {
   height: 60px; }
   .submit:hover {
     background: #ba1839 !important; }
+    .btn_0,
+    .btn_10,
+    .pricing-card-area .single-card .card-bottom .get-btn {
+        background: #ff4495;
+        background: -moz-linear-gradient(top, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+        background: -webkit-linear-gradient(top, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+        background: linear-gradient(to bottom, #ff4495 0%, #ff6d6d 100%, #7db9e8 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4495', endColorstr='#7db9e8', GradientType=0)
+    }
+    
+    .btn_0:hover {
+        background: #7db9e8;
+        background: -moz-linear-gradient(top, #7db9e8 0%, #ff6d6d 0%, #ff4495 100%);
+        background: -webkit-linear-gradient(top, #7db9e8 0%, #ff6d6d 0%, #ff4495 100%);
+        background: linear-gradient(to bottom, #7db9e8 0%, #ff6d6d 0%, #ff4495 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#ff4495', GradientType=0)
+    }

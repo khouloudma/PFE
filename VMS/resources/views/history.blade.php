@@ -217,6 +217,21 @@ History        </a></div>
                         <th>
                           Email adress
                         </th>
+                        @if($parameter->enablefield1=='on')
+                        <th>
+                        {{$parameter->field1}}
+                        </th>
+                        @endif
+                        @if($parameter->enablefield2=='on')
+                        <th>
+                        {{$parameter->field2}}
+                        </th>
+                        @endif
+                        @if($parameter->enablefield3=='on')
+                        <th>
+                        {{$parameter->field3}}
+                        </th>
+                        @endif
                         <th>
                           Check-in
                         </th>
@@ -236,6 +251,9 @@ History        </a></div>
                         <td>{{$vis->name}}</td>
                         <td>+{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
+                        <td>{{$vis->field1}}</td>
+                        <td>{{$vis->field2}}</td>
+                        <td>{{$vis->field3}}</td>
                         <td>{{$vis->created_at}}</td>
                         <td>{{$vis->checkout_date}}</td>
                         <td>{{$vis->purpose}}</td>

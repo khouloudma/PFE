@@ -117,7 +117,7 @@ Visitor  log
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="/forms">
             <i class="material-icons">person</i>
               <p>Customized Forms</p>
             </a>
@@ -336,7 +336,7 @@ Visitor  log
                     @if(isset($visitor))
                       @foreach($visitor as $vis)
                         <tr>
-                        <td><img  style='width: 130px;height: 105px;border-radius: 53px;' src="{{$vis->visitor_image}}" ></td>
+                        <td><img  style='width: 130px;height: 105px;' src="{{$vis->visitor_image}}" ></td>
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
@@ -350,14 +350,15 @@ Visitor  log
                               {{ method_field('POST') }}
                               @csrf
                                <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
-                                <a href="#{{$vis->id}}"  class="btn_0" data-toggle="modal">Edit</a></td>
+                                <button type="submit"  class="btn btn_0 fm-close"    onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
+                                <a href="#{{$vis->id}}" class="btn btn_0 btn-floating" data-toggle="modal"> <i class="fa fa-magic"></i></a></td>
                         
                         </tr>
                       @endforeach
                     @endif
                       </tbody> 
                     </table>
+                    <center><a href="#Addvisitor" data-toggle="modal" class="btn btn_0 btn-floating">Add visitor manually</a></center>
                   </div>
                 </div>
               </div>
@@ -414,13 +415,15 @@ Visitor  log
       </ul>
     </div>
   </div>
+
+  <!-- !----------Model edit visitor---------------! -->
   @foreach($visitor as $vis)
 
 <div class="modal fade" id="{{$vis->id}}" >
   <div class="modal-dialog" role="document">
       <div class="modal-content" style="background-image: url('images/this.jpg');">
           <div class="modal-header">
-              <h5 class="modal-title">Edit</h5>
+              <center><h3 class="modal-title">Edit</h3></center>
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
@@ -499,13 +502,107 @@ Visitor  log
                       </div>
                   </div>
           <div class="modal-footer">
-              <button type="submit"  class="btn_0">Save changes</button>
+              <button type="submit"  class="btn btn_0 btn-floating">Save changes</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div></form>
       </div>
   </div>
 </div>
 @endforeach
+  <!-- !----------Model add visitor---------------! -->
+  @foreach($visitor as $vis)
+
+<div class="modal fade" id="Addvisitor" >
+  <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-image: url('images/this.jpg');">
+          <div class="modal-header">
+              <center><h3 class="modal-title">Add visitor</h3></center>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+          <form class="form-horizontal" enctype="multipart/form-data"  role="form" method="POST" action="/visitor_add">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                          <label class="label" for="name" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Full Name</label>
+                          <input type="text" class="form-control" name='name' id='name'placeholder="exp:Johndoe" required>
+                          @error('name')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      <div class="form-group">
+                          <label class="label" for="phone" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Phone number</label>
+                          <input type="text" class="form-control" name='phone' id='phone' placeholder="exp:216 97 242 311" required>
+                          @error('phone')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      <div class="form-group">
+                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="email">Email Address</label>
+                          <input type="text" class="form-control" id='email' name='email'placeholder="exp:Johndoe@gmail.com" required>
+                          @error('email')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                      @if($parameter->enablefield1=='on')
+                        @if($parameter->requirefield1=='on')
+                      <div class="form-group">
+                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
+                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" required>
+                      </div>
+                       @else
+                      <div class="form-group">
+                          <label class="label" for="field1" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' >{{$parameter->field1}}</label>
+                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" >
+                      </div>
+                      @endif
+                      @endif
+                      @if($parameter->enablefield2=='on')
+                      @if($parameter->requirefield2=='on')
+                      <div class="form-group">
+                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
+                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" required>
+                      </div>
+                      @else
+                      <div class="form-group">
+                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
+                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" >
+                      </div>
+                      @endif
+                      @endif
+                      @if($parameter->enablefield3=='on')
+                      @if($parameter->requirefield3=='on')
+                      <div class="form-group">
+                          <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
+                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" required>
+                      </div>
+                      @else
+                      <div class="form-group">
+                          <label class="label" for="field3"  style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
+                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" >
+                      </div>
+                      @endif
+                      @endif
+                      <div class="form-group">
+                          <label class="label" for="purpose" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Purpose</label>
+                          <textarea  class="form-control" name='purpose' id="purpose" placeholder="purpose" required></textarea>
+                          @error('purpose')
+                          <p style="color:red;">{{$message}}</p>
+                          @enderror
+                      </div>
+                  </div>
+          <div class="modal-footer">
+              <button type="submit"  class="btn btn_0 btn-floating">Add</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div></form>
+      </div>
+  </div>
+</div>
+@endforeach
+  <!--   end add visitor model   -->
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>

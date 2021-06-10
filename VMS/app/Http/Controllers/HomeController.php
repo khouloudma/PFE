@@ -65,7 +65,8 @@ class HomeController extends Controller
     {
         $user = auth()->user();
         $visit = Visit::where('id_user',$user->id)->whereNotNull('checkout_date')->get();
-        return view('history',compact('visit'));
+        $parameter = parameter::where('id_user',$user->id)->first();
+        return view('history',compact('visit','parameter'));
       
     }
     public function checkin()
@@ -100,7 +101,8 @@ class HomeController extends Controller
             return view('checkout');};
     }
     public function checkinsucess()
-    {
+    {       
+            
         return view('check-in-succes');
     }
     public function search(Request $request)
@@ -127,11 +129,12 @@ class HomeController extends Controller
 	}
     public function forms()
     {   
-        
-        return view('forms');
+        $user = auth()->user();
+        $parameter = parameter::where('id_user',$user->id)->first();
+        return view('forms',compact('parameter'));
 
 	}
-    public function test(Request $request)
+    public function parametrage(Request $request)
     { 
         
         if(!($request->get('requirefield1'))){
