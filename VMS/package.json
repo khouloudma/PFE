@@ -22,6 +22,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
-        "bootstrap4-toggle": "^3.6.1"
+        "bootstrap4-toggle": "^3.6.1",
+        "print-js": "^1.6.0"
     }
 }

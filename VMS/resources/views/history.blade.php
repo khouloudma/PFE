@@ -251,9 +251,21 @@ History        </a></div>
                         <td>{{$vis->name}}</td>
                         <td>+{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
-                        <td>{{$vis->field1}}</td>
-                        <td>{{$vis->field2}}</td>
-                        <td>{{$vis->field3}}</td>
+                        @if($parameter->enablefield1=='on')
+                        <td>
+                        {{$vis->field1}}
+                        </td>
+                        @endif
+                        @if($parameter->enablefield2=='on')
+                        <td>
+                        {{$vis->field2}}
+                        </td>
+                        @endif
+                        @if($parameter->enablefield3=='on')
+                        <td>
+                        {{$vis->field3}}
+                        </td>
+                        @endif
                         <td>{{$vis->created_at}}</td>
                         <td>{{$vis->checkout_date}}</td>
                         <td>{{$vis->purpose}}</td>

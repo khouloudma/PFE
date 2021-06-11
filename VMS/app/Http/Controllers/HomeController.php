@@ -178,22 +178,19 @@ class HomeController extends Controller
         }
         $user = auth()->user();
 
-        $parameter  = new parameter([
-            'field1' => $request->get('field1'),
-            'field2' => $request->get('field2'),
-            'field3' => $request->get('field3'),
+        $parameter  = parameter::where('id_user',$user->id)->update(['field1' => $request->get('field1'),'field2' => $request->get('field2'),'field3' => $request->get('field3'),
             'requirefield1' => $requirefield1,
             'requirefield2' => $requirefield2,
             'requirefield3' => $requirefield3,
             'enablefield1' => $enablefield1,
             'enablefield2' => $enablefield2,
             'enablefield3' => $enablefield3,
-            'id_user' => $user->id,
             'requireCapture'=> $requireCapture,
             'requirePrinter'=> $requirePrinter,
   
         ]); 
-      $parameter->save();
+        $parameter  = parameter::where('id_user',$user->id)->first();
+
       return view('forms',compact('parameter'));
     }
 }
