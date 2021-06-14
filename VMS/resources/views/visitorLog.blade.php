@@ -613,6 +613,10 @@ Visitor  log
   </div>
 </div>
 @endforeach
+<div class="visible-print text-center">
+     
+
+</div>
   <!--   end add visitor model   -->
 
   <!--   Core JS Files   -->

@@ -238,8 +238,8 @@ for (i = 0; i < closebtns.length; i++) {
   });
 }
 </script>
-      <form method="POST" enctype="multipart/form-data"  action="/test" class="signup-form">
-           @csrf_token  
+      <form method="POST" enctype="multipart/form-data"  action="/parametrage" class="signup-form">
+           @csrf
             <ul class="list-group"> 
            <li class="list-group-item list-group-item-light">
             <div class="form-group">

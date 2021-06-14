@@ -9,6 +9,8 @@ use Session;
 use App\Feedback;
 use App\parameter;
 use DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 
 
@@ -47,7 +49,11 @@ class HomeController extends Controller
         return view('profile');
     }
     public function visitor()
-    {   $user = auth()->user();
+    
+    {  
+
+        
+        $user = auth()->user();
         $parameter = parameter::where('id_user',$user->id)->first();
         $allusers=User::where('role','entreprise')->get();
         $visitor = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->get();
@@ -82,10 +88,8 @@ class HomeController extends Controller
         return view('checkout',compact('visitor'));
     }
     public function checkoutsuccess(Request $request){
-        $validateData=$request->validate([
-            'code' => ['required', 'integer', 'max:99999' ,'min:10000'],
-          ]);
-          $code=$request->get('code');
+        
+          $code=$request->get('text');
 
           $visitor = Visitor::where('code',$code)->first();
         if($visitor)
@@ -136,7 +140,6 @@ class HomeController extends Controller
 	}
     public function parametrage(Request $request)
     { 
-        
         if(!($request->get('requirefield1'))){
             $requirefield1='off';
         }else{

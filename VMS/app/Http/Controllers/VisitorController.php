@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Twilio\Rest\Client; ;
 use DB;
 use App\parameter;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use Illuminate\Support\Facades\Mail;
 class VisitorController extends Controller
@@ -28,9 +29,12 @@ class VisitorController extends Controller
         $uniques[] = $random_code;
 
     }  
-    }
-        
-        $first=$uniques[1];
+    }        $first=$uniques[1];
+
+    $file = '/images/qrcode'.$first.'.png';
+    $Qrcode= \QrCode::size(500)
+    ->format('png')
+    ->generate(($first), public_path('images/qrcode'.$first.'.png'));
        
       $validateData=$request->validate([
         'name' => ['required', 'string', 'max:255' ,'min:2'],
@@ -70,7 +74,7 @@ class VisitorController extends Controller
         'field1'=> $field1,
         'field2'=> $field2,
         'field3'=> $field3,
-
+         'Qrcode' =>$file,
        'id_user'=>$request->get('id_user'),
 
     ]); 
@@ -91,6 +95,7 @@ class VisitorController extends Controller
          $data=[
         'name'=> $request->get('name'),
         'code'=> $first,
+        'Qrcode'=> $file,
         'email' => $request->get('email')
       ];
       Mail::to($request->get('email'))->send(new codeEmail($data));
@@ -107,6 +112,7 @@ class VisitorController extends Controller
                    'field1'=> $field1,
                    'field2'=> $field2,
                    'field3'=> $field3,
+                   'Qrcode' =>$file,
 
                 ]); 
               $visitor->save();

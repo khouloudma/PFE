@@ -51,8 +51,11 @@
                                         <h6 class="card-text">Phone : {{$visitor->phone}}</h6>
                                         <h6 class="card-text">Email : {{$visitor->email}}</h6>
                                         <h6 class="card-text">Purpose : {{$visitor->purpose}}</h6>
+                                        <h6 class="card-text">code : </h6>
+                                        <img style="margin-left: 94px;height: 75px;width: 81px;"src="{{$visitor->Qrcode}}" >
+<br>
 
-                                        <p class="card-text"><small class="text-muted">this bagde is valid for one day  created at :{{$visitor->created_at}}</small></p>
+                                        <p class="card-text"><small class="text-muted"><i style="height:15px;"class="fa fa-exclamation-triangle"></i>This bagde is valid for one day  created at :{{$visitor->created_at}}</small></p>
                                     </div>
                                     </div>
                                 </div>
