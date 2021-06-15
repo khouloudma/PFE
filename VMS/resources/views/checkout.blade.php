@@ -40,7 +40,7 @@
 
                         <div class="form-group"><br>
                             <label class="label" for="preview" style="font-size: 23px;">Scan your Qr code:</label>
-                            <video id="preview" width="100%"></video>
+                          <center>  <video id="preview" width="100%"></video></center>
 
                         </div>
    

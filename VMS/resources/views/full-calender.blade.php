@@ -27,8 +27,13 @@ History  </title>
   <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 </head>
 
 <body class="">
@@ -67,7 +72,7 @@ History        </a></div>
               <p>Web check out</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="./icons.html">
               <i class="material-icons">bubble_chart</i>
               <p>Event calandar</p>
@@ -109,7 +114,7 @@ History        </a></div>
               <p>Help</p>
             </a>
           </li>
-          <li class="nav-item  active">
+          <li class="nav-item  ">
             <a class="nav-link" href="/history">
             <i class="material-icons">notifications</i>
               <p>History</p>
@@ -199,194 +204,161 @@ History        </a></div>
             <div class="col-md-12">
               <div class="card card-plain">
                 <div class="card-header card-header-primary">
-                 <center> <h4 class="card-title mt-0"> Your visitors History </h4></center>
+                 <center> <h4 class="card-title mt-0"> Your Calender </h4></center>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table id='list' class="table table-hover">
-                      <thead class=""> 
-                        <th>
-                        Avatar
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Phone number
-                        </th>
-                        <th>
-                          Email adress
-                        </th>
-                        @if($parameter->enablefield1=='on')
-                        <th>
-                        {{$parameter->field1}}
-                        </th>
-                        @endif
-                        @if($parameter->enablefield2=='on')
-                        <th>
-                        {{$parameter->field2}}
-                        </th>
-                        @endif
-                        @if($parameter->enablefield3=='on')
-                        <th>
-                        {{$parameter->field3}}
-                        </th>
-                        @endif
-                        <th>
-                          Check-in
-                        </th>
-                         <th>
-                          Check-out
-                        </th>
-                        <th>
-                          Action
-                        </th>
-                        
-                      </thead>
-                      <tbody>
-                    @if(isset($visit))
-                      @foreach($visit as $vis)
-                        <tr>
-                        <td><img  style='width: 130px;height: 105px;' src="{{$vis->visitor_visit_image}}" ></td>
-                        <td>{{$vis->name}}</td>
-                        <td>+{{$vis->phone}}</td>
-                        <td>{{$vis->email}}</td>
-                        @if($parameter->enablefield1=='on')
-                        <td>
-                        {{$vis->field1}}
-                        </td>
-                        @endif
-                        @if($parameter->enablefield2=='on')
-                        <td>
-                        {{$vis->field2}}
-                        </td>
-                        @endif
-                        @if($parameter->enablefield3=='on')
-                        <td>
-                        {{$vis->field3}}
-                        </td>
-                        @endif
-                        <td>{{$vis->created_at}}</td>
-                        <td>{{$vis->checkout_date}}</td>
-                        <td>{{$vis->purpose}}</td>
+                    <div class="content">
+                    <div class="container">
+                    <br />
+                    <br />
 
-                        </tr>
-                      @endforeach
-                    @endif
-                      </tbody>
-                    </table>
-                  </div>
+                    <div id="calendar"></div>
+
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  </div>
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
+   
+<script>
+
+$(document).ready(function () {
+
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var calendar = $('#calendar').fullCalendar({
+        editable:true,
+        header:{
+            left:'prev,next today',
+            center:'title',
+            right:'month,agendaWeek,agendaDay'
+        },
+        events:'/full-calender',
+        selectable:true,
+        selectHelper: true,
+        select:function(start, end, allDay)
+        {
+            var title = prompt('Event Title:');
+
+            if(title)
+            {
+                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+
+                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+
+                $.ajax({
+                    url:"/full-calender/action",
+                    type:"POST",
+                    data:{
+                        title: title,
+                        start: start,
+                        end: end,
+                        type: 'add'
+                    },
+                    success:function(data)
+                    {
+                        calendar.fullCalendar('refetchEvents');
+                        alert("Event Created Successfully");
+                    }
+                })
+            }
+        },
+        editable:true,
+        eventResize: function(event, delta)
+        {
+            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
+            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+                url:"/full-calender/action",
+                type:"POST",
+                data:{
+                    title: title,
+                    start: start,
+                    end: end,
+                    id: id,
+                    type: 'update'
+                },
+                success:function(response)
+                {
+                    calendar.fullCalendar('refetchEvents');
+                    alert("Event Updated Successfully");
+                }
+            })
+        },
+        eventDrop: function(event, delta)
+        {
+            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
+            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+                url:"/full-calender/action",
+                type:"POST",
+                data:{
+                    title: title,
+                    start: start,
+                    end: end,
+                    id: id,
+                    type: 'update'
+                },
+                success:function(response)
+                {
+                    calendar.fullCalendar('refetchEvents');
+                    alert("Event Updated Successfully");
+                }
+            })
+        },
+
+        eventClick:function(event)
+        {
+            if(confirm("Are you sure you want to remove it?"))
+            {
+                var id = event.id;
+                $.ajax({
+                    url:"/full-calender/action",
+                    type:"POST",
+                    data:{
+                        id:id,
+                        type:"delete"
+                    },
+                    success:function(response)
+                    {
+                        calendar.fullCalendar('refetchEvents');
+                        alert("Event Deleted Successfully");
+                    }
+                })
+            }
+        }
+    });
+
+});
+  
+</script>
         
-      </ul>
-    </div>
-  </div>
+     </div>     </div>
+     </div>
+     </div>
+     </div>
+     </div>
+
+
+   
+
+
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!-- Plugin for the momentJs  -->
-  <script src="../assets/js/plugins/moment.min.js"></script>
-  <!--  Plugin for Sweet Alert -->
-  <script src="../assets/js/plugins/sweetalert2.js"></script>
-  <!-- Forms Validations Plugin -->
-  <script src="../assets/js/plugins/jquery.validate.min.js"></script>
-  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-  <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-  <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
-  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-  <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-  <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-  <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
-  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
-  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
-  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-  <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
-  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-  <script src="../assets/js/plugins/nouislider.min.js"></script>
-  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-  <!-- Library for adding dinamically elements -->
-  <script src="../assets/js/plugins/arrive.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="../assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
+
+
 
 
 
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
 
 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
-<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> 
 
   <script>
     $(document).ready(function() {

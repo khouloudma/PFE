@@ -77,7 +77,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
+            <a class="nav-link" href="full-calender">
               <i class="material-icons">bubble_chart</i>
               <p>Event calandar</p>
             </a>

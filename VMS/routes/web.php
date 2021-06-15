@@ -44,4 +44,9 @@ Route::get('/search-record','HomeController@search');
 Route::get('/search-recordvisitor','HomeController@searchvisitor');
  
 
+Route::get('full-calender', 'FullCalenderController@index');
+
+Route::post('full-calender/action','FullCalenderController@action');
+
+?>
 
