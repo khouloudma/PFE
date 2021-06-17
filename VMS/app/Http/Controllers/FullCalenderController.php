@@ -8,7 +8,7 @@ use App\Event;
 class FullCalenderController extends Controller
 {
     public function index(Request $request)
-    {
+    { 
     	if($request->ajax())
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
@@ -20,9 +20,10 @@ class FullCalenderController extends Controller
     }
 
     public function action(Request $request)
-    {
+    {	
     	if($request->ajax())
     	{
+
     		if($request->type == 'add')
     		{
     			$event = Event::create([

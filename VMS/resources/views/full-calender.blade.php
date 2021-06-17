@@ -18,7 +18,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-History  </title>
+Calender  </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -199,15 +199,8 @@ History        </a></div>
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card card-plain">
-                <div class="card-header card-header-primary">
-                 <center> <h4 class="card-title mt-0"> Your Calender </h4></center>
-                </div>
-                <div class="card-body">
-                    <div class="content">
+  
+            
                     <div class="container">
                     <br />
                     <br />
@@ -256,7 +249,7 @@ $(document).ready(function () {
                         type: 'add'
                     },
                     success:function(data)
-                    {
+                    {   dd(data);
                         calendar.fullCalendar('refetchEvents');
                         alert("Event Created Successfully");
                     }
@@ -350,7 +343,6 @@ $(document).ready(function () {
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 
 
