@@ -196,4 +196,7 @@ class HomeController extends Controller
 
       return view('forms',compact('parameter'));
     }
+    public function calender(){
+        return view('full-calender');
+    }
 }

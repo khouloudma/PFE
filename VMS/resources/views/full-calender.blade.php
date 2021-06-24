@@ -24,16 +24,29 @@ Calender  </title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-  <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+  <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.css') }}" />
+
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+  <!--   Core JS Files   -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="crossorigin="anonymous"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+  <script src="{{  URL::asset('js/fullcalendar.js') }}"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+  <style>
+    #dialog{
+      display:none;
+    }
+  </style>
 </head>
 
 <body class="">
@@ -44,8 +57,8 @@ Calender  </title>
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-History        </a></div>
+      <div class="logo"><a  class="simple-text logo-normal">
+Calendar        </a></div>
       <div class="sidebar-wrapper">
       <ul class="nav">
           <li class="nav-item  ">
@@ -198,162 +211,137 @@ History        </a></div>
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
-  
-            
-                    <div class="container">
+      <div class="content">    
+        <div class="container">
                     <br />
                     <br />
+          <div id="calendar"></div>
+         </div>
+     </div>     
+      <!-- event dialog start -->
+      <div id='dialog' class="modal" >
+        <div id='dialog-body'>
+          <form id='dayClick' method="post" action="{{route('eventStore')}}">
+            @csrf
+            <div class='form-group'>
+              <label>Title</label>
+              <input type="text" class='form-group' name='title' placeholder='Service title'>
+            </div>
+            <div class='form-group'>
+              <label>Start Date/Time:</label>
+              <input type="text" class='form-group' id="start" name='start' placeholder='Start date & time'>
+            </div>
+            <div class='form-group'>
+              <label>End Date/Time</label>
+              <input type="text" class='form-group' name='end' id="end" placeholder='End date & time'>
+            </div>
+            <div class='form-group'>
+              <label>All Day</label>
+              <input type="checkbox" value="1" name="AllDay">All Day
+              <input type="checkbox" value="0" name="AllDay">Partial
 
-                    <div id="calendar"></div>
+            </div>
+            <div class='form-group'>
+              <label>Background Color</label>
+              <input type="color" class='form-group' name='color' >
+            </div>
+            <div class='form-group'>
+              <label>Text Color</label>
+              <input type="color" class='form-group' name='textColor' >
+            </div>
+            <div class='form-group'>
+              <button class='btn btn-success' type="submit">Add service</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- End of event dialog -->
 
-                </div>
-   
-<script>
+     
+     <script>
+$(document).ready(function() {
+  function convert(str){
+    const d= new Date(str);
+    let month= '' +(d.getMonth() + 1);
+    let day= '' + d.getDate();
+    let year= d.getFullYear();
+    if(month.length < 2) month ='0' + month;
+    if(day.length < 2) day ='0' + day;
+    let hour= '' + d.getUTCHours();
+    let minutes= '' + d.getUTCMinutes();
+    let seconds= '' + d.getUTCSeconds();
+    if(hour.length < 2) hour ='0' + hour;
+    if(minutes.length < 2) minutes ='0' + minutes;
+    if(seconds.length < 2) seconds ='0' + seconds;
+    return[year,month,day].join('-')+' '+[hour,minutes,seconds].join(':');
 
-$(document).ready(function () {
 
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
-    var calendar = $('#calendar').fullCalendar({
-        editable:true,
-        header:{
-            left:'prev,next today',
-            center:'title',
-            right:'month,agendaWeek,agendaDay'
-        },
-        events:'/full-calender',
-        selectable:true,
-        selectHelper: true,
-        select:function(start, end, allDay)
+
+
+  }
+  var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+$.fn.bootstrapBtn = bootstrapButton      
+// page is now ready, initialize the calendar...
+
+var calendar = $('#calendar').fullCalendar({
+  // put your options and callbacks here
+  selectable: true,
+  height: "auto",
+  showNonCurrentDates: false,
+  editable:false,
+  defaultView: 'month',
+  yearColumns: 3,
+  timezone: 'local',
+  selectHelper: true,
+
+
+
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'year,month,basicWeek,basicDay'
+
+  },
+  select:function(start, end, allDay)
         {
-            var title = prompt('Event Title:');
-
-            if(title)
-            {
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-
-                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        type: 'add'
-                    },
-                    success:function(data)
-                    {   dd(data);
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Created Successfully");
-                    }
-                })
-            }
-        },
-        editable:true,
-        eventResize: function(event, delta)
-        {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-            var title = event.title;
-            var id = event.id;
-            $.ajax({
-                url:"/full-calender/action",
-                type:"POST",
-                data:{
-                    title: title,
-                    start: start,
-                    end: end,
-                    id: id,
-                    type: 'update'
-                },
-                success:function(response)
-                {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
-                }
+          $('#start').val(convert(start));
+          $('#end').val(convert(end));
+          $('#dialog').dialog({
+              title:'Add Service',
+              resizable: false,
+              width:600,
+              height:600,
+              modal:true,
+              show:{effect:'clip',duration:350},
+              hide:{effect:'clip',duration:250},
             })
-        },
-        eventDrop: function(event, delta)
-        {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-            var title = event.title;
-            var id = event.id;
-            $.ajax({
-                url:"/full-calender/action",
-                type:"POST",
-                data:{
-                    title: title,
-                    start: start,
-                    end: end,
-                    id: id,
-                    type: 'update'
-                },
-                success:function(response)
-                {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
-                }
-            })
-        },
 
-        eventClick:function(event)
-        {
-            if(confirm("Are you sure you want to remove it?"))
-            {
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        id:id,
-                        type:"delete"
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Deleted Successfully");
-                    }
-                })
-            }
-        }
-    });
+           
+        },
+  events:"{{route('allEvent')}}",
+ dayClick:function(date,event,view){
+  $('#start').val(convert(date));
+   $('#end').val(convert(date));
+    $('#dialog').dialog({
+      title:'Add Service',
+      resizable: false,
+      width:600,
+      height:600,
+      modal:true,
+      show:{effect:'clip',duration:350},
+      hide:{effect:'clip',duration:250},
+    })
 
-});
-  
+
+    }
+
+
+})});
 </script>
-        
-     </div>     </div>
-     </div>
-     </div>
-     </div>
-     </div>
-
-
-   
-
-
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-
-
-
-
-
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
-
-
-
-  <script>
+<script>
     $(document).ready(function() {
+      
       $().ready(function() {
         $sidebar = $('.sidebar');
 
@@ -564,6 +552,8 @@ $(document).ready(function () {
         } );
     } );
   </script>
+  @include('sweetalert::alert')
+
 </body>
 
 </html>

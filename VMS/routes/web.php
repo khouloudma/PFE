@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FullCalenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +23,15 @@ Route::get('/contact', 'WelcomeController@contact'); // tha3tly lpage bch n3awdh
 
 Route::get('/privacy','WelcomeController@privacy');
 Auth::routes();
+//fullcalender routes//
+Route::get('/full-calender','HomeController@calender');
+Route::post('store','EventController@store')->name('eventStore');
+Route::get('index','EventController@index')->name('allEvent');
+
+
+//end fullcalender//
+
+
 Route::post('/remove_visitor/{id}','HomeController@removeVisitor');
 Route::post('/remove_user/{id}','HomeController@removeUser');
 Route::get('/Status','PaymentController@Status')->name('Status');
@@ -43,10 +51,8 @@ Route::get('/forms','HomeController@forms');
 
 Route::get('/search-record','HomeController@search');
 Route::get('/search-recordvisitor','HomeController@searchvisitor');
- 
-Route::get('full-calender', [FullCalenderController::class, 'index']);
 
-Route::post('full-calender/action', [FullCalenderController::class, 'action']);
+
 
 ?>
 
