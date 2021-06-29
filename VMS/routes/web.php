@@ -27,9 +27,15 @@ Auth::routes();
 Route::get('/full-calender','HomeController@calender');
 Route::post('store','EventController@store')->name('eventStore');
 Route::get('index','EventController@index')->name('allEvent');
-
+Route::get('Service/remove/{id}','EventController@destroy');
 
 //end fullcalender//
+//start pre-appointment//
+Route::get('/pre_appointment','HomeController@pre_appointment');
+Route::post('/appointment','HomeController@appointmentAdd')->name('/appointment');
+
+//end pre-appointment//
+
 
 
 Route::post('/remove_visitor/{id}','HomeController@removeVisitor');

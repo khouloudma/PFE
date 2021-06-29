@@ -44,7 +44,7 @@ class VisitorController extends Controller
       ]);
         $email=$request->get('email');
           if(Visitor::where('id_user',$user->id)->where('email', '=', $request->get('email'))->where('phone', '=', $request->get('phone'))->exists()){
-           $visitor= Visitor::where('id_user',$user->id)->where('email',$email)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
+           $visitor= Visitor::where('id_user',$user->id)->where('email',$email)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1')]);
           }
           if($request->get('field1'))
           {$field1=$request->get('field1');}else{$field1='';}
@@ -70,11 +70,11 @@ class VisitorController extends Controller
         'email' => $request->get('email'),
         'purpose' => $request->get('purpose'),
         'visitor_visit_image'=> $request->get('visitor_image'),
-        'code'=> $first,
         'field1'=> $field1,
         'field2'=> $field2,
         'field3'=> $field3,
          'Qrcode' =>$file,
+
        'id_user'=>$request->get('id_user'),
 
     ]); 
@@ -94,7 +94,6 @@ class VisitorController extends Controller
 
          $data=[
         'name'=> $request->get('name'),
-        'code'=> $first,
         'Qrcode'=> $file,
         'email' => $request->get('email')
       ];
@@ -106,13 +105,14 @@ class VisitorController extends Controller
                     'email' => $request->get('email'),
                     'purpose' => $request->get('purpose'),
                     'visitor_image'=> $request->get('visitor_image'),
-                    'code'=> $first,
                    'frequentlyVisted'=> '1',
                    'id_user'=>$request->get('id_user'),
                    'field1'=> $field1,
                    'field2'=> $field2,
                    'field3'=> $field3,
                    'Qrcode' =>$file,
+                   'code'=>$first,
+
 
                 ]); 
               $visitor->save();
@@ -172,7 +172,7 @@ public function add_visitor(Request $request)
     ]);
       $email=$request->get('email');
         if(Visitor::where('id_user',$user->id)->where('email', '=', $request->get('email'))->where('phone', '=', $request->get('phone'))->exists()){
-         $visitor= Visitor::where('id_user',$user->id)->where('email',$email)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1'),'code'=>$first]);
+         $visitor= Visitor::where('id_user',$user->id)->where('email',$email)->first()->update(['frequentlyVisted' => DB::raw('frequentlyVisted + 1')]);
         }
         if($request->get('field1'))
         {$field1=$request->get('field1');}else{$field1='';}
@@ -198,7 +198,6 @@ public function add_visitor(Request $request)
       'email' => $request->get('email'),
       'purpose' => $request->get('purpose'),
       'visitor_visit_image'=> $request->get('visitor_image'),
-      'code'=> $first,
       'field1'=> $field1,
       'field2'=> $field2,
       'field3'=> $field3,
@@ -222,7 +221,6 @@ $visit->save();
 
        $data=[
       'name'=> $request->get('name'),
-      'code'=> $first,
       'email' => $request->get('email')
     ];
     Mail::to($request->get('email'))->send(new codeEmail($data));
@@ -233,12 +231,12 @@ $visit->save();
                   'email' => $request->get('email'),
                   'purpose' => $request->get('purpose'),
                   'visitor_image'=> $request->get('visitor_image'),
-                  'code'=> $first,
                  'frequentlyVisted'=> '1',
                  'id_user'=>$id_user,
                  'field1'=> $field1,
                  'field2'=> $field2,
                  'field3'=> $field3,
+                 'code'=>$first,
 
               ]); 
             $visitor->save();

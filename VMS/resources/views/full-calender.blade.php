@@ -211,10 +211,15 @@ Calendar        </a></div>
         </div>
       </nav>
       <!-- End Navbar -->
+      <br><br><br>
+      <div class="card card-plain">
+                    <div class="card-header card-header-primary">
+                  <h4 class="card-title mt-0"> Your Calendar </h4>
+                  <p class="card-category">Plan your daily services</p>
+                </div>
       <div class="content">    
         <div class="container">
-                    <br />
-                    <br />
+          <div class="mb-5"><button class="btn btn-danger" id='addEventButton'>Add Service</button></div>
           <div id="calendar"></div>
          </div>
      </div>     
@@ -225,32 +230,51 @@ Calendar        </a></div>
             @csrf
             <div class='form-group'>
               <label>Title</label>
-              <input type="text" class='form-group' name='title' placeholder='Service title'>
+              <input type="text" id="title" class='form-group' name='title' placeholder='Service title'>
             </div>
             <div class='form-group'>
               <label>Start Date/Time:</label>
-              <input type="text" class='form-group' id="start" name='start' placeholder='Start date & time'>
+              <input type="text" class='form-group' id="start" name='start' placeholder='20..-0.-0. 00:00:00'>
             </div>
             <div class='form-group'>
               <label>End Date/Time</label>
-              <input type="text" class='form-group' name='end' id="end" placeholder='End date & time'>
+              <input type="text" class='form-group' name='end' id="end" placeholder='20..-0.-0. 00:00:00'>
             </div>
             <div class='form-group'>
               <label>All Day</label>
-              <input type="checkbox" value="1" name="AllDay">All Day
-              <input type="checkbox" value="0" name="AllDay">Partial
+              <input type="radio"  value="1" name="AllDay" checked>All Day
+              <input type="radio" value="0"  name="AllDay">Partial
 
             </div>
             <div class='form-group'>
+              <label>State:</label>
+              <select name="state" id="state">
+              <option class="form-control" value="">Select option</option>
+                <option class="form-control" value="open time">open time</option>
+                <option class="form-control" value="00:30">00:30</option>
+                <option class="form-control"value="01:00">01:00</option>
+                <option class="form-control" value="01:30">01:30</option>
+                <option class="form-control" value="02:00">02:00</option>
+                <option class="form-control" value="02:30" >02:30</option>
+              </select>
+
+            </div>
+            <div class='form-group'>
+              <label>limit of attendees</label>
+              <input type="number" name="limit_of_attendees" id="limit_of_attendees" placeholder="1">
+            </div>
+            <div class='form-group'>
               <label>Background Color</label>
-              <input type="color" class='form-group' name='color' >
+              <input type="color" class='form-group' id='color' name='color' >
             </div>
             <div class='form-group'>
               <label>Text Color</label>
-              <input type="color" class='form-group' name='textColor' >
+              <input type="color" class='form-group'  id='textColor' name='textColor' >
             </div>
+            <input type="hidden" name="event_id" id="event_id">
             <div class='form-group'>
-              <button class='btn btn-success' type="submit">Add service</button>
+              <button class='btn btn-success' type="submit" id="update">Add service</button>
+              <a onClick="return confirm('are you sure you want to delete this service?')" class="btn btn-danger" id='delete' ><i class="fa fa-trash"></i></a>
             </div>
           </form>
         </div>
@@ -260,26 +284,35 @@ Calendar        </a></div>
      
      <script>
 $(document).ready(function() {
+ 
+
   function convert(str){
     const d= new Date(str);
-    let month= '' +(d.getMonth() + 1);
+    let month= '' +(d.getMonth()+1);
     let day= '' + d.getDate();
     let year= d.getFullYear();
     if(month.length < 2) month ='0' + month;
     if(day.length < 2) day ='0' + day;
-    let hour= '' + d.getUTCHours();
+    let hour= '' +(2+ d.getUTCHours());//heure ghalta
     let minutes= '' + d.getUTCMinutes();
     let seconds= '' + d.getUTCSeconds();
     if(hour.length < 2) hour ='0' + hour;
     if(minutes.length < 2) minutes ='0' + minutes;
     if(seconds.length < 2) seconds ='0' + seconds;
     return[year,month,day].join('-')+' '+[hour,minutes,seconds].join(':');
+  };
+  $('#addEventButton').on('click',function(){
+    $('#dialog').dialog({
+      title:'Add Service',
+      resizable: false,
+      width:600,
+      height:600,
+      modal:true,
+      show:{effect:'clip',duration:350},
+      hide:{effect:'clip',duration:250},
+    })
 
-
-
-
-
-  }
+  });
   var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
 $.fn.bootstrapBtn = bootstrapButton      
 // page is now ready, initialize the calendar...
@@ -319,6 +352,29 @@ var calendar = $('#calendar').fullCalendar({
 
            
         },
+  eventClick:function(event){
+    $('#title').val(event.title);
+    $('#start').val(convert(event.start));
+    $('#end').val(convert(event.end));
+    $('#color').val(event.color);
+    $('#textColor').val(event.textColor);
+    $('#event_id').val(event.id);
+    $('#update').html('Update');
+    var url="{{url('Service/remove/')}}";
+    $('#delete').attr('href',url+'/'+event.id);
+    $('#dialog').dialog({
+              title:'Edit Service',
+              resizable: false,
+              width:600,
+              height:600,
+              modal:true,
+              show:{effect:'clip',duration:350},
+              hide:{effect:'clip',duration:250},
+            })
+
+
+  },
+
   events:"{{route('allEvent')}}",
  dayClick:function(date,event,view){
   $('#start').val(convert(date));

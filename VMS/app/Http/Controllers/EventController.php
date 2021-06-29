@@ -13,8 +13,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $event=Event::Latest()->get();
+    {$id_user=auth()->user()->id;
+        $event=Event::where('id_user',$id_user)->Latest()->get();
         return response()->json($event,200);
     }
 
@@ -35,7 +35,9 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
+        $id_user=auth()->user()->id;
+        try{
         $validator=Validator::make($request->all(),[
             'title'=>'required',
             'start'=>'required',
@@ -43,6 +45,8 @@ class EventController extends Controller
             'AllDay'=>'required',
             'color'=>'required',
             'textColor'=>'required',
+            'state'=>'required',
+
 
         ]);
         if($validator->failed()){
@@ -50,11 +54,48 @@ class EventController extends Controller
             return redirect()->back();
  
         }else{
-        Event::create($request->all());
-        Alert::success('Success','Event Created Successfully');
-        return redirect()->back();
+            if(empty($request->event_id)){
 
-    }
+                    Event::create([
+                        'title'=>$request->title,
+                        'start'=>$request->start,
+                        'end'=>$request->end,
+                        'AllDay'=>$request->AllDay,
+                        'color'=>$request->color,
+                        'textColor'=>$request->textColor,
+                        'id_user'=>$id_user,
+                        'state'=>$request->state,
+                        'limit_of_attendees'=>$request->limit_of_attendees,
+
+            
+                    ]);
+                    Alert::success('Success','Service Created Successfully');
+                    return redirect()->back();
+                    
+            }else{
+                        Event::where('id_user',$id_user)->where('id',$request->event_id)->update([
+                            'title'=>$request->title,
+                            'start'=>$request->start,
+                            'end'=>$request->end,
+                            'AllDay'=>$request->AllDay,
+                            'color'=>$request->color,
+                            'textColor'=>$request->textColor,
+                            'state'=>$request->state,
+                            'limit_of_attendees'=>$request->limit_of_attendees,
+
+
+                
+                        ]);
+                        Alert::success('Success','Service Updated Successfully');
+                        return redirect()->back();
+            }
+        }
+
+        }catch(\Exception $e){
+                Alert::error('Error',$e->getMessage());
+                return redirect()->back();
+
+          }
     }
 
     /**
@@ -76,7 +117,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -98,7 +139,16 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    
+    { 
+        try{
+            Event::where('id',$id)->delete();
+            Alert::success('Success','Service deleted Successfully');
+            return redirect()->back();
+    }catch(\Exception $e){
+        Alert::error('Error',$e->getMessage());
+        return redirect()->back();
+
+  }
     }
 }

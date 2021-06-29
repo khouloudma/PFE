@@ -11,7 +11,7 @@ class Event extends Model
     protected $table='events';
 
 	protected $fillable = [
-		'title', 'start', 'end','color','AllDay','textColor'
+		'title', 'start', 'end','color','AllDay','textColor','id_user','state','limit_of_attendees'
 	];
 }
 

@@ -288,6 +288,7 @@ Visitor  log
                   <h4 class="card-title mt-0"> Your visitors </h4>
                   <p class="card-category"> Check daily visitors details</p>
                 </div>
+                <div><a class='btn btn-danger' href="{{url('/pre_appointment')}}">Pre-appointment</a></div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id='list' class="table table-hover">
@@ -303,22 +304,25 @@ Visitor  log
                         </th>
                         <th>
                           Email adress
-                        </th>
+                        </th>@if(isset($parameter->enablefield1))
                         @if($parameter->enablefield1=='on')
                         <th>
                         {{$parameter->field1}}
                         </th>
-                        @endif
+                        @endif                        @endif
+                        @if(isset($parameter->enablefield1))
                         @if($parameter->enablefield2=='on')
                         <th>
                         {{$parameter->field2}}
                         </th>
-                        @endif
+                        @endif             @endif
+                        @if(isset($parameter->enablefield3))
                         @if($parameter->enablefield3=='on')
                         <th>
                         {{$parameter->field3}}
                         </th>
-                        @endif
+                        @endif                        @endif
+
                         <th>
                           Check-in
                         </th>
@@ -362,8 +366,8 @@ Visitor  log
                               {{ method_field('POST') }}
                               @csrf
                                <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="btn btn_0 fm-close"    onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
-                                <a href="#{{$vis->id}}" class="btn btn_0 btn-floating" data-toggle="modal"> <i class="fa fa-magic"></i></a></td>
+                                <button type="submit"  class="btn btn-danger"    onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
+                                <a href="#{{$vis->id}}" class="btn btn-outline-primary btn-floating" data-toggle="modal"> <i class="fa fa-magic"></i></a></td>
                         
                         </tr>
                       @endforeach
