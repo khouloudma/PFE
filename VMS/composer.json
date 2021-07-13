@@ -20,6 +20,7 @@
         "paypal/rest-api-sdk-php": "*",
         "realrashid/sweet-alert": "^4.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "simshaun/recurr": "^4.0",
         "twilio/sdk": "^6.24"
     },
     "require-dev": {

@@ -21,13 +21,8 @@ class CreateAvailabilitiesTable extends Migration
             $table->integer('id_visitor');
             $table->string('state');
             $table->timestamps();
-
-
-
-
-
-
-        });
+            $table->integer('id_department');
+            $table->integer('id_event');        });
     }
 
     /**
@@ -37,7 +32,9 @@ class CreateAvailabilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('availabilities');
-    
+        Schema::table('availabilities', function (Blueprint $table) {
+            Schema::dropIfExists('availabilities');
+
+        });
     }
 }

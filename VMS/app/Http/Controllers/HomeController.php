@@ -5,8 +5,11 @@ use Illuminate\Http\Request;
 use App\visitor;
 use App\visit;
 use App\User;
+use App\Service;
+use App\Department;
 use Session;
 use Illuminate\Support\Facades\Mail;
+use Alert;
 
 use App\Feedback;
 use App\parameter;
@@ -15,7 +18,6 @@ use App\Mail\codeEmail;
 
 use DB;
 use Carbon\Carbon;
-use Alert;
 use App\availability;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -206,8 +208,10 @@ class HomeController extends Controller
       return view('forms',compact('parameter'));
     }
     public function calender(){
+        $user = auth()->user();
 
-        return view('full-calender');
+        $services=Department::where('id_user',$user->id)->get()->all();
+        return view('full-calender',compact('services'));
     }
     public function pre_appointment(){
          
@@ -426,5 +430,24 @@ class HomeController extends Controller
                         }
                 
       }
+    }
+    public function ServiceAdd(Request $request)
+    { if(isset($request->title)){
+        $department=Department::create([
+            'title'=>$request->title,
+            'id_user'=>auth()->user()->id,
+        ]);
+        $department->save();
+        Alert::success('Success','Service is added Successfully');
+        return redirect()->back();
+    }else{
+        Alert::error('Error','Please enter a Service');
+        return redirect()->back();
+
+    }
+    }
+    public function test(Request $request)
+    {
+        dd($request);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStateToStateTable extends Migration
+class AddDepartmentsIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddStateToStateTable extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->string('state');
-
+        Schema::table('services', function (Blueprint $table) {
+            $table->integer('id_department');
         });
     }
 
@@ -26,8 +25,8 @@ class AddStateToStateTable extends Migration
      */
     public function down()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('state');
+        Schema::table('services', function (Blueprint $table) {
+            $table->dropColumn('id_department');
 
         });
     }

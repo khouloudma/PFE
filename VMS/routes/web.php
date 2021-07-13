@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/services','WelcomeController@services');
 Route::POST('contactcontroller','ContactController@index');
 Route::post('pay','PaymentController@Paywithpaypal')->name('pay');
 Route::get('/cancelled','PaymentController@cancelled')->name('cancelled');
@@ -57,6 +58,9 @@ Route::get('/forms','HomeController@forms');
 
 Route::get('/search-record','HomeController@search');
 Route::get('/search-recordvisitor','HomeController@searchvisitor');
+Route::POST('/ServiceAdd','HomeController@ServiceAdd')->name('/ServiceAdd');
+Route::POST('/ServiceConfigure','ServiceController@ServiceConfigure')->name('ServiceConfigure');
+Route::post('/remove_department/{id}','ServiceController@DeleteDepartment');
 
 
 

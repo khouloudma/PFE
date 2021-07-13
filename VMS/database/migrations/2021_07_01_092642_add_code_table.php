@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLimitOfAttendeesToStateTable extends Migration
+class AddCodeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddLimitOfAttendeesToStateTable extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->integer('limit_of_attendees');
+        Schema::table('visitors', function (Blueprint $table) {
+            $table->integer('code');
+            $table->string('type');
+
 
         });
     }
@@ -26,8 +28,10 @@ class AddLimitOfAttendeesToStateTable extends Migration
      */
     public function down()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('limit_of_attendees');
+        Schema::table('visitors', function (Blueprint $table) {
+            $table->dropColumn('code');
+            $table->dropColumn('type');
+
 
         });
     }

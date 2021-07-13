@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIdUserEventsTable extends Migration
+class CreateDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddIdUserEventsTable extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->string('id_user');
-
+        Schema::create('departments', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->integer('id_user');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ class AddIdUserEventsTable extends Migration
      */
     public function down()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('id_user');
-
-        });
+        Schema::dropIfExists('departments');
     }
 }
