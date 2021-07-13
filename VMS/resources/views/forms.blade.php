@@ -24,8 +24,9 @@
 <body class="">    
 
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')"> 
+  <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -83,7 +84,7 @@
               <p>Evacuation</p>
             </a>
           </li>
-          <li class="nav-item  active  ">
+          <li class="nav-item active" style="    width: 189px;">
             <a class="nav-link" href="/forms">
             <i class="material-icons">person</i>
               <p>Customized Forms</p>
@@ -244,13 +245,13 @@ for (i = 0; i < closebtns.length; i++) {
            <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Print bagde</label>
-              <label for="required"></label><input  type="checkbox" name="requirePrinter" id="requirePrinter"  <?php if ($parameter->requirePrinter=="on")echo 'checked'?> data-toggle="toggle" data-size="sm">
+              <label for="required"></label><input  type="checkbox" name="requirePrinter" id="requirePrinter"  <?php if (isset($parameter->requirePrinter) && ($parameter->requirePrinter=="on"))echo 'checked'?> data-toggle="toggle" data-size="sm">
            </div>
         </li>
         <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">camera capture</label>
-              <label for="required"></label><input name="requireCapture" id="requireCapture"  type="checkbox" <?php if ($parameter->requireCapture=="on")echo 'checked'?> data-toggle="toggle" data-size="sm">
+              <label for="required"></label><input name="requireCapture" id="requireCapture"  type="checkbox" <?php if (isset($parameter->requireCapture) &&($parameter->requireCapture=="on"))echo 'checked'?> data-toggle="toggle" data-size="sm">
 
            </div>
         </li>
@@ -280,11 +281,11 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1' placeholder="{{$parameter->field1}}" >
+              <input style="width: fit-content;" type="text" class="form-control" name='field1' id='field1'  <?php if (isset($parameter->field1) &&($parameter->field1=="on"))echo 'value="{{$parameter->field1}}"' ?> >
            </div>
             <div>  
-                <label for="requirefield1">required</label><input  name="requirefield1" <?php if ($parameter->requirefield1=="on")echo 'checked'?> id="requirefield1" type="checkbox"  data-toggle="toggle" >
-                <label for="enablefield1">enable</label><input   <?php if ($parameter->enablefield1=="on")echo 'checked'?> id="enablefield1" name="enablefield1"type="checkbox"  data-toggle="toggle" >
+                <label for="requirefield1">required</label><input  name="requirefield1" <?php if (isset($parameter->requirefield1) &&($parameter->requirefield1=="on"))echo 'checked'?> id="requirefield1" type="checkbox"  data-toggle="toggle" >
+                <label for="enablefield1">enable</label><input   <?php if (isset($parameter->enablefield1) &&($parameter->enablefield1=="on"))echo 'checked'?> id="enablefield1" name="enablefield1"type="checkbox"  data-toggle="toggle" >
             </div>
             <li name="second" id="second" class="list-group-item">
               <a onclick="openchoices2({{auth()->user()->id}})" class="btn_0">+Add More</a>
@@ -295,11 +296,11 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field2' id='field2' placeholder="{{$parameter->field2}}" >
+              <input style="width: fit-content;" type="text" class="form-control" name='field2' id='field2'  <?php if (isset($parameter->field2) && ($parameter->field2=="on"))echo 'value="{{$parameter->field2}}"' ?> >
            </div>
             <div>
-                <label for="requirefield2">required</label><input  name="requirefield2" id="requirefield2" type="checkbox" <?php if ($parameter->requirefield2=="on")echo 'checked'?> data-toggle="toggle" data-size="sm">
-                <label for="enablefield2">enable</label><input name="enablefield2" id="enablefield2"type="checkbox"  <?php if ($parameter->enablefield2=="on")echo 'checked'?> data-toggle="toggle" data-size="sm">
+                <label for="requirefield2">required</label><input  name="requirefield2" id="requirefield2" type="checkbox" <?php if (isset($parameter->requirefield2) &&($parameter->requirefield2=="on"))echo 'checked'?> data-toggle="toggle" data-size="sm">
+                <label for="enablefield2">enable</label><input name="enablefield2" id="enablefield2"type="checkbox"  <?php if (isset($parameter->enablefield2) && ($parameter->enablefield2=="on"))echo 'checked'?> data-toggle="toggle" data-size="sm">
             </div>
             <li id="third" name="third"class="list-group-item">
               <a class="btn_0" onclick="openchoices3({{auth()->user()->id}})">+Add More</a>
@@ -310,11 +311,11 @@ for (i = 0; i < closebtns.length; i++) {
           <li class="list-group-item list-group-item-light">
             <div class="form-group">
               <label style="color:black;"class="label" for="name">Give this field a name</label>
-              <input style="width: fit-content;" type="text" class="form-control" name='field3' id='field3' placeholder="{{$parameter->field3}}" >
+              <input style="width: fit-content;" type="text" class="form-control" name='field3' id='field3'  <?php if (isset($parameter->field3) &&($parameter->field3=="on"))echo 'value="{{$parameter->field3}}"' ?> >
            </div>
             <div>
-                <label for="requirefield3">required</label><input  <?php if ($parameter->requirefield3=="on")echo 'checked'?> name="requirefield3" id="requirefield3" type="checkbox"  data-toggle="toggle" data-size="sm">
-                <label for="enablefield3">enable</label><input  <?php if ($parameter->enablefield3=="on")echo 'checked'?>  id="enablefield3" name="enablefield3"type="checkbox"  data-toggle="toggle" data-size="sm" >
+                <label for="requirefield3">required</label><input  <?php if (isset($parameter->requirefield3) &&($parameter->requirefield3=="on"))echo 'checked'?> name="requirefield3" id="requirefield3" type="checkbox"  data-toggle="toggle" data-size="sm">
+                <label for="enablefield3">enable</label><input  <?php if (isset($parameter->enablefield3) && ($parameter->enablefield3=="on"))echo 'checked'?>  id="enablefield3" name="enablefield3"type="checkbox"  data-toggle="toggle" data-size="sm" >
             </div>
           </li>
         </div>            <button  class="btn_0" >Save</button>
@@ -623,6 +624,8 @@ a, button {
 
     });
   </script>
+    @include('sweetalert::alert')
+
 </body>
 
 </html>

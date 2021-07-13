@@ -30,8 +30,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')">       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -113,8 +113,8 @@ The above copyright notice and this permission notice shall be included in all c
               <p>History</p>
             </a>
           </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="profile">
+          <li class="nav-item active" >
+            <a class="nav-link" href="profile" style="    width: 189px;">
             <i class="material-icons">library_books</i>
               <p>Profile</p>
             </a>

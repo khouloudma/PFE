@@ -37,8 +37,8 @@ Visitor  log
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')">     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -55,8 +55,8 @@ Visitor  log
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item  active ">
-            <a class="nav-link" href="visitor">
+          <li class="nav-item active">
+            <a class="nav-link" href="visitor"  style="    width: 189px;">
               <i class="material-icons">person</i>
               <p>your entreprises</p>
             </a>
@@ -231,8 +231,8 @@ Visitor  log
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
+                    <table class="table" >
+                      <thead class="thead-dark">
                      
                         <th>
                           Name
@@ -256,7 +256,7 @@ Visitor  log
                           Action
                         </th>
                       </thead>
-                      <tbody>
+                      <tbody class="thead-light">
                       @foreach($allusers as $user)
                         <tr>
                         <td>{{$user->name}}</td>
@@ -304,24 +304,23 @@ Visitor  log
                         </th>
                         <th>
                           Email adress
-                        </th>@if(isset($parameter->enablefield1))
-                        @if($parameter->enablefield1=='on')
+                        </th>
+                        @if(isset($parameter->enablefield1) &&($parameter->enablefield1=='on'))
+                      
                         <th>
                         {{$parameter->field1}}
                         </th>
-                        @endif                        @endif
-                        @if(isset($parameter->enablefield1))
-                        @if($parameter->enablefield2=='on')
+                        @endif                     
+                        @if(isset($parameter->enablefield2) &&($parameter->enablefield2=='on'))
                         <th>
                         {{$parameter->field2}}
                         </th>
-                        @endif             @endif
-                        @if(isset($parameter->enablefield3))
-                        @if($parameter->enablefield3=='on')
+                        @endif             
+                        @if(isset($parameter->enablefield3) &&($parameter->enablefield3=='on'))
                         <th>
                         {{$parameter->field3}}
                         </th>
-                        @endif                        @endif
+                        @endif                     
 
                         <th>
                           Check-in
@@ -344,17 +343,18 @@ Visitor  log
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
-                        @if($parameter->enablefield1=='on')
+                        @if(isset($parameter->enablefield1) &&($parameter->enablefield1=='on'))
+
                         <td>
                         {{$vis->field1}}
                         </td>
                         @endif
-                        @if($parameter->enablefield2=='on')
+                        @if(isset($parameter->enablefield2) &&($parameter->enablefield2=='on'))
                         <td>
                         {{$vis->field2}}
                         </td>
                         @endif
-                        @if($parameter->enablefield3=='on')
+                        @if(isset($parameter->enablefield3) &&($parameter->enablefield3=='on'))
                         <td>
                         {{$vis->field3}}
                         </td>
@@ -470,8 +470,8 @@ Visitor  log
                           <p style="color:red;">{{$message}}</p>
                           @enderror
                       </div>
-                      @if($parameter->enablefield1=='on')
-                        @if($parameter->requirefield1=='on')
+                      @if(isset($parameter->enablefield1) && isset($parameter->requirefield1) && ($parameter->enablefield1=='on'))
+                          @if($parameter->requirefield1=='on')
                       <div class="form-group">
                           <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
                           <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" required>
@@ -481,10 +481,11 @@ Visitor  log
                           <label class="label" for="field1" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' >{{$parameter->field1}}</label>
                           <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" >
                       </div>
+                       
+                        @endif
                       @endif
-                      @endif
-                      @if($parameter->enablefield2=='on')
-                      @if($parameter->requirefield2=='on')
+                      @if(isset($parameter->enablefield2) && isset($parameter->requirefield2) && ($parameter->enablefield2=='on'))
+                          @if($parameter->requirefield2=='on')
                       <div class="form-group">
                           <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
                           <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" required>
@@ -494,21 +495,24 @@ Visitor  log
                           <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
                           <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" >
                       </div>
+                      
+                        @endif
                       @endif
-                      @endif
-                      @if($parameter->enablefield3=='on')
-                      @if($parameter->requirefield3=='on')
+                      @if(isset($parameter->enablefield3) && isset($parameter->requirefield3) && ($parameter->enablefield3=='on'))
+                        @if($parameter->requirefield3=='on')
                       <div class="form-group">
                           <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
                           <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" required>
                       </div>
-                      @else
+                         @else
                       <div class="form-group">
                           <label class="label" for="field3"  style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
                           <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" >
                       </div>
+                     
+                        @endif
                       @endif
-                      @endif
+
                       <div class="form-group">
                           <label class="label" for="purpose" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Purpose</label>
                           <textarea  class="form-control" name='purpose' id="purpose" required>{{$vis->purpose}}</textarea>
@@ -524,8 +528,9 @@ Visitor  log
       </div>
   </div>
 </div>
-@endforeach
+  @endforeach
   <!-- !----------Model add visitor---------------! -->
+  <input type="text" hidden='true'>
   @foreach($visitor as $vis)
 
 <div class="modal fade" id="Addvisitor" >
@@ -562,7 +567,7 @@ Visitor  log
                           <p style="color:red;">{{$message}}</p>
                           @enderror
                       </div>
-                      @if($parameter->enablefield1=='on')
+                      @if(isset($parameter->enablefield1) && isset($parameter->requirefield1) && ($parameter->enablefield1=='on'))
                         @if($parameter->requirefield1=='on')
                       <div class="form-group">
                           <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
@@ -575,7 +580,7 @@ Visitor  log
                       </div>
                       @endif
                       @endif
-                      @if($parameter->enablefield2=='on')
+                      @if(isset($parameter->enablefield2) && isset($parameter->requirefield2) && ($parameter->enablefield2=='on'))
                       @if($parameter->requirefield2=='on')
                       <div class="form-group">
                           <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
@@ -588,7 +593,7 @@ Visitor  log
                       </div>
                       @endif
                       @endif
-                      @if($parameter->enablefield3=='on')
+                      @if(isset($parameter->enablefield3) && isset($parameter->requirefield3) && ($parameter->enablefield3=='on'))
                       @if($parameter->requirefield3=='on')
                       <div class="form-group">
                           <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>

@@ -21,8 +21,8 @@
 <body class="">    
 
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')">      <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -33,8 +33,8 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
         @if(auth()->user()->role=='admin')
-          <li class="nav-item active  ">
-            <a class="nav-link" href="home">
+        <li class="nav-item active" >
+            <a class="nav-link" href="home" style="    width: 189px;">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>

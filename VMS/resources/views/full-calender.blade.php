@@ -20,15 +20,16 @@ The above copyright notice and this permission notice shall be included in all c
   <title>
 Calender  </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
+  <!--     Fonts and icons     -->  
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <style>
   .btn.slider-btn, .btn_0, .btn_10, .pricing-card-area .single-card .card-bottom .get-btn {
     background: #ff4495;
@@ -63,8 +64,9 @@ a, button {
   <!--   Core JS Files   -->
   
   <script src="../assets/js/core/jquery.min.js"></script>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="crossorigin="anonymous"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
@@ -72,10 +74,11 @@ a, button {
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
   <script src="{{  URL::asset('js/fullcalendar.js') }}"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+  <link href="../css/jquery.dataTables.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
 <link href="https://cdn.jsdelivr.net/bootstrap.timepicker/0.2.6/css/bootstrap-timepicker.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/bootstrap.timepicker/0.2.6/js/bootstrap-timepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <style>
     #dialog{
       display:none;
@@ -129,7 +132,8 @@ a, button {
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')"> 
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -163,7 +167,7 @@ Calendar        </a></div>
               <p>Web check out</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item active" style="    width: 189px;">
             <a class="nav-link" href="./icons.html">
               <i class="material-icons">bubble_chart</i>
               <p>Event calandar</p>
@@ -290,34 +294,40 @@ Calendar        </a></div>
       </nav>
       <!-- End Navbar -->
       <br><br><br>
-      <div class="card card-plain">
+      <div class="card"style="    background: #eeeeee;">
           <div class="card-header card-header-primary">
                   <h4 class="card-title mt-0"> Your Services Calendar </h4>
                   <p class="card-category">Plan your services</p>
+      </div> </div><br>
+   
+      <div>
         <form action="/ServiceAdd" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="align-baseline"> 
-            <input type="text" id="title"class="form-control" style="width:fit-content;" name="title" placeholder="Service Title">
+            <input type="text" id="title"class="form-control" style="width:fit-content; margin-left:30px;" name="title" placeholder="Service Title">
             <button class='btn btn-success' type="submit" style="margin-left: 205px;margin-top: -54px;"id="add">Add service</button>
         </div>
         </form>
-        </div></div>
+        </div>   <center>
         <!---service adding------------>
         <table  id='list' name="list" class="table">
-          <thead>
+          <thead style="    background:linear-gradient(to bottom, #171717fc 0%, #191919b3 100%, #ffffff3d 100%);
+    color: white;height: 52px;">
             <td>Service:</td>
             <td>Action:</td>
           </thead>
           <tbody>
           @foreach($services as $ser)
-          <tr>
-          <td>{{$ser->title}}</td>
-          <td><button class="btn btn-outline-primary" id='addEventButton'  onclick="openchoices(<?php echo $ser->id;?>)">Setting</button>
+          <tr style="background-color:#5a56561f;">
+          <td style=" font-size:40px"><center>{{$ser->title}}</center></td>
+          <td style="    width: 244px;">
+
+            <button class="btn btn-outline-primary btn-floating" id='addEventButton'  onclick="openchoices(<?php echo $ser->id;?>)"><i class="fa fa-magic"></i></button>
           <form action="/remove_department/{{$ser->id}}" method="POST">
                               {{ method_field('POST') }}
                               @csrf
                                <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="btn btn-danger"    onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>          </tr>
+                                <button type="submit" class="btn btn-danger"    onclick="return confirm('Êtes-vous sûrs ?')"  style="margin-left: 107px;margin-top: -76px;"><i class="fa fa-remove" ></i></button></form>          </tr>
           <script>function openchoices(idwd) {
                   var x = document.getElementById("K"+idwd);
                  if (    x.style.display == "block") {
@@ -326,27 +336,26 @@ Calendar        </a></div>
           @endforeach
           </tbody>
         </table>
-       
+       <br><br>
          <!---service table------------>
-          <div class="mb-5"><button class="btn btn-danger" >Add Service</button></div>
       <div class="content">    
         <div class="container">
           <div id="calendar"></div></div></div></div>
 
    
-
+     
 
       <!-- event dialog start -->
       @foreach($services as $ser)
       <div id="K<?php echo $ser->id;?>" class="modal"  >
-
+    
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
       <h5 class="modal-title">Service configuration</h5>
     
-        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span class="" aria-hidden="true">&times;</span></button>
 
+     
         </div>
       <div class="modal-body">
             <div class="form-group">
@@ -470,6 +479,7 @@ function openchoicesStateSU(idwd) {
             <center><a id='Monday_btn'class="btn_0" onclick="Monday(<?php echo $ser->id; ?>)">Monday</a><a  class="btn_0" onclick="Tuesday(<?php echo $ser->id; ?>)"id="Tuesday_btn">Tuesday</a><a class="btn_0" onclick="Wednesday(<?php echo $ser->id; ?>)" id="Wednesday_btn">Wednesday</a><a class="btn_0" onclick="Thursday(<?php echo $ser->id; ?>)" id="Thursday_btn">Thursday</a><a class="btn_0" onclick="Friday(<?php echo $ser->id; ?>)" id="Friday_btn">Friday</a><a class="btn_0" onclick="Saturday(<?php echo $ser->id; ?>)" id="Saturday_btn">Saturday</a><a class="btn_0" onclick="Sunday(<?php echo $ser->id; ?>)" id="Sunday_btn">Sunday</a></center>
             </div>
 <!--------Monday start----->
+
 
 <div id="Monday<?php echo $ser->id; ?>" style="display: none;">
             <div class="form-group ">
@@ -1052,7 +1062,8 @@ $("#start_monday").datepicker({ minDate: 0,beforeShowDay: function(date)
 
 
             <div class='form-group'>
-              <a onClick="return confirm('are you sure you want to delete this service?')" class="btn btn-danger" id='delete' ><i class="fa fa-trash"></i></a>
+            <a type="button" class="btn btn-secondary"   href=" {{route('close')}}" >Close</a>
+              </button>
             </div>
         </div>
       </div></div></div>
@@ -1312,18 +1323,9 @@ success:function(data){alert(data);},});};
    if(seconds.length < 2) seconds ='0' + seconds;
    return[year,month,day].join('-')+' '+[hour,minutes,seconds].join(':');
  };
- $('#addEventButton').on('click',function(){
-   $('#dialog').dialog({
-     title:'Add Service',
-     resizable: false,
-     width:1200,
-     height:600,
-     modal:true,
-     show:{effect:'clip',duration:350},
-     hide:{effect:'clip',duration:250},
-   })
 
- });
+ 
+ 
  var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
 $.fn.bootstrapBtn = bootstrapButton      
 // page is now ready, initialize the calendar...
@@ -1344,22 +1346,8 @@ var calendar = $('#calendar').fullCalendar({
    right: 'year,month,basicWeek,basicDay'
 
  },
- select:function(start, end, allDay)
-       {
-         $('#start').val(convert(start));
-         $('#end').val(convert(end));
-         $('#dialog').dialog({
-             title:'Add Service',
-             resizable: false,
-             width:600,
-             height:600,
-             modal:true,
-             show:{effect:'clip',duration:350},
-             hide:{effect:'clip',duration:250},
-           })
 
-          
-       },
+      
  eventClick:function(event){
    $('#title').val(event.title);
    $('#start').val(convert(event.start));
@@ -1661,7 +1649,6 @@ dayClick:function(date,event,view){
   
   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 

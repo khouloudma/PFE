@@ -33,8 +33,8 @@ History  </title>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')">      <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -109,8 +109,8 @@ History        </a></div>
               <p>Help</p>
             </a>
           </li>
-          <li class="nav-item  active">
-            <a class="nav-link" href="/history">
+          <li class="nav-item active" >
+            <a class="nav-link" href="/history" style="    width: 189px;">
             <i class="material-icons">notifications</i>
               <p>History</p>
             </a>

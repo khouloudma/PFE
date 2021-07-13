@@ -37,6 +37,7 @@ Route::post('/appointment','HomeController@appointmentAdd')->name('/appointment'
 
 //end pre-appointment//
 
+Route::get('close','HomeController@close')->name('close');
 
 
 Route::post('/remove_visitor/{id}','HomeController@removeVisitor');
@@ -61,8 +62,7 @@ Route::get('/search-recordvisitor','HomeController@searchvisitor');
 Route::POST('/ServiceAdd','HomeController@ServiceAdd')->name('/ServiceAdd');
 Route::POST('/ServiceConfigure','ServiceController@ServiceConfigure')->name('ServiceConfigure');
 Route::post('/remove_department/{id}','ServiceController@DeleteDepartment');
-
-
+Route::get('/evacuation','HomeController@evacuation')
 
 ?>
 

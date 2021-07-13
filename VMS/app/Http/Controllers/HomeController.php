@@ -88,7 +88,7 @@ class HomeController extends Controller
     public function checkin()
     {           $user = auth()->user();
      
-    $services=Event::where('id_user',$user->id)->where('state','open time')->whereDate('start',Carbon::today())->get()->all();
+    $services=Department::where('id_user',$user->id)->get()->all();
 
         $parameter = parameter::where('id_user',$user->id)->first();
         return view('checkin',compact('parameter','services'));
@@ -150,7 +150,8 @@ class HomeController extends Controller
 
 	}
     public function parametrage(Request $request)
-    { 
+    {
+       
         if(!($request->get('requirefield1'))){
             $requirefield1='off';
         }else{
@@ -191,7 +192,11 @@ class HomeController extends Controller
             $requirePrinter='on';
         }
         $user = auth()->user();
-
+        $parameter  = parameter::where('id_user',$user->id)->first();
+    
+        if(!empty($parameter))
+        {
+           
         $parameter  = parameter::where('id_user',$user->id)->update(['field1' => $request->get('field1'),'field2' => $request->get('field2'),'field3' => $request->get('field3'),
             'requirefield1' => $requirefield1,
             'requirefield2' => $requirefield2,
@@ -204,8 +209,30 @@ class HomeController extends Controller
   
         ]); 
         $parameter  = parameter::where('id_user',$user->id)->first();
+        Alert::success('Success','Parameters updated successfully');
+
+      return view('forms',compact('parameter'));}
+      else{
+        parameter::create([
+            'id_user'=>$user->id,
+            'field1' => $request->get('field1'),'field2' => $request->get('field2'),'field3' => $request->get('field3'),
+        'requirefield1' => $requirefield1,
+        'requirefield2' => $requirefield2,
+        'requirefield3' => $requirefield3,
+        'enablefield1' => $enablefield1,
+        'enablefield2' => $enablefield2,
+        'enablefield3' => $enablefield3,
+        'requireCapture'=> $requireCapture,
+        'requirePrinter'=> $requirePrinter,]);
+
+ Alert::success('Success','Parameters saved successfully');
 
       return view('forms',compact('parameter'));
+
+      }
+  
+    
+      
     }
     public function calender(){
         $user = auth()->user();
@@ -217,7 +244,7 @@ class HomeController extends Controller
          
         $user = auth()->user();
         $parameter = parameter::where('id_user',$user->id)->first();
-       $services=Event::where('id_user',auth()->user()->id)->get();
+       $services=department::where('id_user',auth()->user()->id)->get();
         return view('pre-appointment',compact('services','parameter'));
     }
     public function appointmentAdd(Request $request)
@@ -446,8 +473,15 @@ class HomeController extends Controller
 
     }
     }
-    public function test(Request $request)
+    public function close()
     {
-        dd($request);
+       return redirect()->back();
+    }
+    public function evacuation(){
+        $user = auth()->user();
+
+        $present_visitors_number = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->count();
+        $visitors = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->get()->all();
+        return view('evacuation',compact('visitors','present_visitors_number'));
     }
 }

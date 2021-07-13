@@ -92,14 +92,22 @@
                         </div>
                         @endif
                         @endif
-                        @endif
-                        <div class="form-group">
+                        @endif <div class="form-group">
                             <label class="label" for="purpose">Purpose</label>
                             <textarea  class="form-control" name='purpose' id="purpose" required></textarea>
                             @error('purpose')
                             <p style="color:red;">{{$message}}</p>
                             @enderror
                         </div>
+                        <div class="form-group">
+                        <label for="service">Choose a service:</label>
+                           <center> <select id="service" name="service">
+                            @foreach($services as $ser)
+                            <option class="form-control" style="width: 304px;height: 43px;" value="{{$ser->id}}">{{$ser->title}}</option>
+                            @endforeach
+                            </select></center>
+                        </div>
+                       
                         <!-- start date -->
                         <div class="form-group">
                             <label class="label" for="start">Start date</label>
@@ -113,14 +121,7 @@
                         </div>                    
                         <!-- end date -->
                        
-                        <div class="form-group">
-                        <label for="service">Choose a service:</label>
-                           <center> <select id="service" name="service">
-                            @foreach($services as $ser)
-                            <option class="form-control" style="width: 304px;height: 43px;" value="{{$ser->id}}">{{$ser->title}}</option>
-                            @endforeach
-                            </select></center>
-                        </div>
+                     
                         <input type="text" hidden='true' name="id_user" id='id_user' value='{{auth()->user()->id }}'>
                       
                         <div class="form-group d-flex justify-content-end mt-5">

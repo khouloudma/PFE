@@ -45,9 +45,9 @@
                         </div>
    
                             <div class="col-md-6" >
-                                <input type="text" name="text" id="text" readonyy="" placeholder="scan qrcode" class="form-control"                            </div>
-          
-                            <div class="form-group d-flex justify-content-end mt-5">
+                                <input  hidden="true"type="text"  name="text" id="text" readonyy="" placeholder="scan qrcode" class="form-control"  >                         </div>
+                               
+                                <div class="form-group d-flex justify-content-end mt-5">
                                 <button type="submit" class="btn btn-primary submit"><span
                                         class="fa fa-paper-plane"></span></button>
                             </div>

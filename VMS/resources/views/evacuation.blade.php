@@ -37,8 +37,8 @@ Evacuation
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+  <div class="sidebar" data-color="white" style="  width:261px;
+background-image: url('/assets/img/test.jpg')">     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
@@ -84,13 +84,13 @@ Evacuation        </a></div>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
+            <a class="nav-link" href="/notification">
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="./rtl.html">
+            <a class="nav-link" href="/evacuation"  style="    width: 189px;">
               <i class="material-icons">language</i>
               <p>Evacuation</p>
             </a>
@@ -131,7 +131,7 @@ Evacuation        </a></div>
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="material-icons">library_books</i> <p> {{ __('Logout') }}</p></a>           
           </li>
-          @endif
+      
         </ul>
       </div>
     </div>
@@ -140,7 +140,7 @@ Evacuation        </a></div>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Visitor Log</a>
+            <a class="navbar-brand" href="javascript:;">Evacuation</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -198,83 +198,21 @@ Evacuation        </a></div>
         </div>
       </nav>
       <!-- End Navbar -->
-      @if(auth()->user()->role=='admin')
+  
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card card-plain">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Your entreprises </h4>
-                  <p class="card-category"> Check daily entreprise's details</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                     
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Phone number
-                        </th>
-                        <th>
-                          Email adress
-                        </th>
-                        <th>
-                          company name
-                        </th>
-                         <th>
-                          Country
-                        </th>
-                        <th>
-                          category field
-                        </th>
-                        <th>
-                          Action
-                        </th>
-                      </thead>
-                      <tbody>
-                      @foreach($allusers as $user)
-                        <tr>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->Phone_number}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->Company_name}}</td>
-                        <td>{{$user->Country}}</td>
-                        <td>{{$user->Category_field}}</td>
-                        <td><a href="javascript:void(0)"   onclick="openchoices({{$user->id}})"  class="btn1" >Edit</a></td><br>
-                        <td><div class="fm-input "  style="display: none;" id="H{{$user->id}}">hehy</div></td>
-                        <td><form action="/remove_user/{{$user->id}}" method="POST">
-                              {{ method_field('POST') }}
-                              @csrf
-                               <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="delete fm-close"   style="top: 20px;" onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form></td>
-                      
-                        </tr>
-                      @endforeach
-                    
-                      </tbody> </table>
-                      <center><button>Add new user Manually </button></center>
-                  @else
-                  <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card card-plain">
                     <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"> Your visitors </h4>
-                  <p class="card-category"> Check daily visitors details</p>
+                  <h4 class="card-title mt-0"> Evacuation Procedures  </h4>
+                  <p class="card-category"> Total present visitors : {{$present_visitors_number}}</p>
                 </div>
-                <div><a class='btn btn-danger' href="{{url('/pre_appointment')}}">Pre-appointment</a></div>
+                <div><a class='btn btn-danger' href="">Notify visitors</a></div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id='list' class="table table-hover">
                       <thead class="">
-                      <th>
-                          Avatar
-                        </th>
                         <th>
                           Name
                         </th>
@@ -283,77 +221,118 @@ Evacuation        </a></div>
                         </th>
                         <th>
                           Email adress
-                        </th>@if(isset($parameter->enablefield1))
-                        @if($parameter->enablefield1=='on')
-                        <th>
-                        {{$parameter->field1}}
-                        </th>
-                        @endif                        @endif
-                        @if(isset($parameter->enablefield1))
-                        @if($parameter->enablefield2=='on')
-                        <th>
-                        {{$parameter->field2}}
-                        </th>
-                        @endif             @endif
-                        @if(isset($parameter->enablefield3))
-                        @if($parameter->enablefield3=='on')
-                        <th>
-                        {{$parameter->field3}}
-                        </th>
-                        @endif                        @endif
-
-                        <th>
-                          Check-in
-                        </th>
-                         <th>
-                          Check-out
-                        </th>
-                        <th>
-                          Purpose
-                        </th>
-                        <th>
-                          Action
-                        </th>
+    
                       </thead>
                       <tbody>
-                    @if(isset($visitor))
-                      @foreach($visitor as $vis)
+                    @if(isset($visitors))
+                      @foreach($visitors as $vis)
                         <tr>
-                        <td><img  style='width: 130px;height: 105px;' src="{{$vis->visitor_image}}" ></td>
                         <td>{{$vis->name}}</td>
                         <td>{{$vis->phone}}</td>
                         <td>{{$vis->email}}</td>
-                        @if($parameter->enablefield1=='on')
-                        <td>
-                        {{$vis->field1}}
-                        </td>
-                        @endif
-                        @if($parameter->enablefield2=='on')
-                        <td>
-                        {{$vis->field2}}
-                        </td>
-                        @endif
-                        @if($parameter->enablefield3=='on')
-                        <td>
-                        {{$vis->field3}}
-                        </td>
-                        @endif
-                        <td>{{$vis->updated_at}}</td>
-                        <td>Not yet</td>
-                        <td>{{$vis->purpose}}</td>
-                        <td><form action="/remove_visitor/{{$vis->id}}" method="POST">
-                              {{ method_field('POST') }}
-                              @csrf
-                               <input type="hidden" name="_method" value="POST">      
-                                <button type="submit"  class="btn btn-danger"    onclick="return confirm('Êtes-vous sûrs ?')"><i class="fa fa-remove"></i></button></form>
-                                <a href="#{{$vis->id}}" class="btn btn-outline-primary btn-floating" data-toggle="modal"> <i class="fa fa-magic"></i></a></td>
-                        
                         </tr>
                       @endforeach
                     @endif
                       </tbody> 
                     </table>
-                    <center><a href="#Addvisitor" data-toggle="modal" class="btn btn_0 btn-floating">Add visitor manually</a></center>
+                    <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+  <br>
+<center>
+  <div class="card-header card-header-primary">
+<h3>Evacuation plan</h3>
+<div id="demo" class="carousel slide" data-ride="carousel" style=" width: 400px;">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+    <li data-target="#demo" data-slide-to="4"></li>
+    <li data-target="#demo" data-slide-to="5"></li>
+    <li data-target="#demo" data-slide-to="6"></li>
+    <li data-target="#demo" data-slide-to="7"></li>
+    <li data-target="#demo" data-slide-to="8"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../assets/img/capture.jpg" alt="phone notifications" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>An Evacuation Notification is sent to all the present visitors </h3>
+  </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture1.PNG" alt="Chicago" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+Identify safe escape routes, Find routes that will get people out of the building with the least risk during an evacuation </h3>
+  </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture2.PNG" alt="New York" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+
+    Mark your routes. Provide clear markers for people to guide people to exits from the building. Post evacuation maps throughout the building, and mark exits with clear “EXIT” signs. </h3> </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture3.PNG" alt="New York" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+
+    
+Proceed quickly to an exit. Once you know you are to evacuate, proceed quickly to your nearest exit. Do try to avoid panicking. </h3> </div>
+    </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture4.PNG" alt="New York" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+    Get some distance. Once you have exited the space, make sure to put a safe distance between you and the building. Depending upon the situation </h3>    </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture5.PNG" alt="New York" width="700" height="500">
+      <div class="carousel-caption d-none d-md-block">
+    <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+
+    Get clearance. Before you reenter the building, make sure you get clearance from emergency responders that the building is safe and whatever threat caused the evacuation has been contained. </h3>   </div>
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/img/carsoul/capture6.PNG" alt="New York" width="700" height="500">
+      <br><h3 style='    color: #580f0f;
+    font-size: 24px;
+    font-family: fantasy;'>
+
+      Assess any damage. If physical damage was done to the space, take careful note of what damage occurred and what may be harmed or missing. </h3>  </div>
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div></center></div>
                   </div>
                 </div>
               </div>
@@ -362,244 +341,14 @@ Evacuation        </a></div>
         </div>
       </div>
      
-    </div>
-  </div>
-  @endif
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  <!-- !----------Model edit visitor---------------! -->
-  @foreach($visitor as $vis)
-
-<div class="modal fade" id="{{$vis->id}}" >
-  <div class="modal-dialog" role="document">
-      <div class="modal-content" style="background-image: url('images/this.jpg');">
-          <div class="modal-header">
-              <center><h3 class="modal-title">Edit</h3></center>
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <div class="modal-body">
-          <form class="form-horizontal" enctype="multipart/form-data"  role="form" method="POST" action="/visitor_edit/{{$vis->id}}">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <input type="text" hidden='true'name="id" value="{{$vis->id}}">
-                          <label class="label" for="name" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Full Name</label>
-                          <input type="text" class="form-control" name='name' id='name'placeholder="{{$vis->name}}" required>
-                          @error('name')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      <div class="form-group">
-                          <label class="label" for="phone" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Phone number</label>
-                          <input type="text" class="form-control" name='phone' id='phone' placeholder="{{$vis->phone}}" required>
-                          @error('phone')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      <div class="form-group">
-                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="email">Email Address</label>
-                          <input type="text" class="form-control" id='email' name='email'placeholder="{{$vis->email}}" required>
-                          @error('email')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      @if($parameter->enablefield1=='on')
-                        @if($parameter->requirefield1=='on')
-                      <div class="form-group">
-                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
-                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" required>
-                      </div>
-                       @else
-                      <div class="form-group">
-                          <label class="label" for="field1" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' >{{$parameter->field1}}</label>
-                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$vis->field1}}" >
-                      </div>
-                      @endif
-                      @endif
-                      @if($parameter->enablefield2=='on')
-                      @if($parameter->requirefield2=='on')
-                      <div class="form-group">
-                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
-                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" required>
-                      </div>
-                      @else
-                      <div class="form-group">
-                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
-                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$vis->field2}}" >
-                      </div>
-                      @endif
-                      @endif
-                      @if($parameter->enablefield3=='on')
-                      @if($parameter->requirefield3=='on')
-                      <div class="form-group">
-                          <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
-                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" required>
-                      </div>
-                      @else
-                      <div class="form-group">
-                          <label class="label" for="field3"  style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
-                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$vis->field3}}" >
-                      </div>
-                      @endif
-                      @endif
-                      <div class="form-group">
-                          <label class="label" for="purpose" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Purpose</label>
-                          <textarea  class="form-control" name='purpose' id="purpose" required>{{$vis->purpose}}</textarea>
-                          @error('purpose')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                  </div>
-          <div class="modal-footer">
-              <button type="submit"  class="btn btn_0 btn-floating">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div></form>
-      </div>
-  </div>
-</div>
-@endforeach
-  <!-- !----------Model add visitor---------------! -->
-  @foreach($visitor as $vis)
-
-<div class="modal fade" id="Addvisitor" >
-  <div class="modal-dialog" role="document">
-      <div class="modal-content" style="background-image: url('images/this.jpg');">
-          <div class="modal-header">
-              <center><h3 class="modal-title">Add visitor</h3></center>
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <div class="modal-body">
-          <form class="form-horizontal" enctype="multipart/form-data"  role="form" method="POST" action="/visitor_add">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                          <label class="label" for="name" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Full Name</label>
-                          <input type="text" class="form-control" name='name' id='name'placeholder="exp:Johndoe" required>
-                          @error('name')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      <div class="form-group">
-                          <label class="label" for="phone" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Phone number</label>
-                          <input type="text" class="form-control" name='phone' id='phone' placeholder="exp:216 97 242 311" required>
-                          @error('phone')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      <div class="form-group">
-                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="email">Email Address</label>
-                          <input type="text" class="form-control" id='email' name='email'placeholder="exp:Johndoe@gmail.com" required>
-                          @error('email')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                      @if($parameter->enablefield1=='on')
-                        @if($parameter->requirefield1=='on')
-                      <div class="form-group">
-                          <label class="label" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' for="field1">{{$parameter->field1}}</label>
-                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" required>
-                      </div>
-                       @else
-                      <div class="form-group">
-                          <label class="label" for="field1" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;' >{{$parameter->field1}}</label>
-                          <input type="text" class="form-control" id='field1' name='field1'placeholder="{{$parameter->field1}}" >
-                      </div>
-                      @endif
-                      @endif
-                      @if($parameter->enablefield2=='on')
-                      @if($parameter->requirefield2=='on')
-                      <div class="form-group">
-                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
-                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" required>
-                      </div>
-                      @else
-                      <div class="form-group">
-                          <label class="label" for="field2" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field2}}</label>
-                          <input type="text" class="form-control" id='field2' name='field2'placeholder="{{$parameter->field2}}" >
-                      </div>
-                      @endif
-                      @endif
-                      @if($parameter->enablefield3=='on')
-                      @if($parameter->requirefield3=='on')
-                      <div class="form-group">
-                          <label class="label" for="field3" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
-                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" required>
-                      </div>
-                      @else
-                      <div class="form-group">
-                          <label class="label" for="field3"  style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>{{$parameter->field3}}</label>
-                          <input type="text" class="form-control" id='field3' name='field3'placeholder="{{$parameter->field3}}" >
-                      </div>
-                      @endif
-                      @endif
-                      <div class="form-group">
-                          <label class="label" for="purpose" style='color: black;margin-top: -10px;font-size: medium;font-family: unset;'>Purpose</label>
-                          <textarea  class="form-control" name='purpose' id="purpose" placeholder="purpose" required></textarea>
-                          @error('purpose')
-                          <p style="color:red;">{{$message}}</p>
-                          @enderror
-                      </div>
-                  </div>
-          <div class="modal-footer">
-              <button type="submit"  class="btn btn_0 btn-floating">Add</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div></form>
-      </div>
-  </div>
-</div>
-@endforeach
-<div class="visible-print text-center">
      
+    </div>
+  </div>
 
-</div>
+ 
+  <!-- !----------Model edit visitor---------------! -->
+  
   <!--   end add visitor model   -->
 
   <!--   Core JS Files   -->

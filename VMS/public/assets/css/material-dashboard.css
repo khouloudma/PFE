@@ -582,6 +582,7 @@ a {
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+
 }
 
 a:hover {
@@ -4853,8 +4854,8 @@ tbody.collapse.show {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #eeeeee;
+  background-color: #eee;
+    border-bottom: 1px solid #eeeeee;
 }
 
 .card-header:first-child {
@@ -15339,7 +15340,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav li .dropdown-menu a {
   margin: 10px 15px 0;
   border-radius: 3px;
-  color: #3C4858;
+  color: #ffffff;
   padding-left: 10px;
   padding-right: 10px;
   text-transform: capitalize;
@@ -15401,7 +15402,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   padding: 5px 0px;
   display: inline-block;
   font-size: 18px;
-  color: #3C4858;
+  color: #ffff;;
   white-space: nowrap;
   font-weight: 400;
   line-height: 30px;
@@ -17860,7 +17861,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 
 .card [class*="card-header-"]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
   border-radius: 3px;
-  background: linear-gradient(to bottom, #7474da 0%, #666794 100%, #948fbd 100%);
+  background: linear-gradient(to bottom, #171717fc 0%, #191919b3 100%, #ffffff3d 100%);
   margin-top: -20px;
   padding: 15px;
 }
