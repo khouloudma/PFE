@@ -458,13 +458,13 @@ for ($x = 0; $x < $nbre_service ; $x++) {
     }
     Service::where('id',$list[$x])->delete();
 }
-return 'done ?';
+
 $nbre_av=Availability::where('id_department',$id)->count();$s=0;
 
  Availability::where('id_department',$id)->pluck('id');
- for ($x = 0; $x < $nbre_av ; $x++) {
+ for ($z = 0; $z < $nbre_av ; $z++) {
 
-    Availability::where('id',$list[$x])->delete();
+    Availability::where('id',$list[$z])->delete();
 }
 
 Department::where('id',$id)->delete();
