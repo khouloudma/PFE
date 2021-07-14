@@ -11,7 +11,7 @@ class Event extends Model
     protected $table='events';
 
 	protected $fillable = [
-		'title', 'start', 'breaktime','start_break','end_break','id_service','recurrence','end','color','textColor','id_user','state','limit_of_attendees'
+		'title', 'start', 'breaktime','id_department','start_break','end_break','id_service','recurrence','end','color','textColor','id_user','state','limit_of_attendees'
 	];
 
     public function availability()

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class availability extends Model
 {
     protected $table='availabilities';
-    protected $fillable = ['id_service','hours','id_visitor','state','id_user','id_department','id_event'];
+    protected $fillable = ['id_service','hours','id_visitor','state','id_user','id_department','event_id'];
 
 	public function event()
 	{

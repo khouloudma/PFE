@@ -62,7 +62,9 @@ Route::get('/search-recordvisitor','HomeController@searchvisitor');
 Route::POST('/ServiceAdd','HomeController@ServiceAdd')->name('/ServiceAdd');
 Route::POST('/ServiceConfigure','ServiceController@ServiceConfigure')->name('ServiceConfigure');
 Route::post('/remove_department/{id}','ServiceController@DeleteDepartment');
-Route::get('/evacuation','HomeController@evacuation')
-
+Route::get('/evacuation','HomeController@evacuation');
+Route::get('/pre_appointment_checkin','HomeController@pre_appointment_checkin');
+Route::POST('/pre_appointment_checkin_add','HomeController@pre_appointment_checkin_add');
+Route::POST('/checkoutsuccess2','HomeController@checkoutsuccess2');
 ?>
 

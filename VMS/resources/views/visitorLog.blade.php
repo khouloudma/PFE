@@ -288,7 +288,7 @@ background-image: url('/assets/img/test.jpg')">     <!--
                   <h4 class="card-title mt-0"> Your visitors </h4>
                   <p class="card-category"> Check daily visitors details</p>
                 </div>
-                <div><a class='btn btn-danger' href="{{url('/pre_appointment')}}">Pre-appointment</a></div>
+                <div><a class='btn btn-danger' href="{{url('/pre_appointment')}}">Pre-appointment</a> <a class='btn btn-danger' href="{{url('/pre_appointment_checkin')}}">Pre-appointment checkin</a></div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table id='list' class="table table-hover">

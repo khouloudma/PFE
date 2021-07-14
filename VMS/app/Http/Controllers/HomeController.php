@@ -80,7 +80,7 @@ class HomeController extends Controller
     public function history()
     {
         $user = auth()->user();
-        $visit = Visit::where('id_user',$user->id)->whereNotNull('checkout_date')->get();
+        $visit = Visit::where('id_user',$user->id)->get();
         $parameter = parameter::where('id_user',$user->id)->first();
         return view('history',compact('visit','parameter'));
       
@@ -88,7 +88,7 @@ class HomeController extends Controller
     public function checkin()
     {           $user = auth()->user();
      
-    $services=Department::where('id_user',$user->id)->get()->all();
+    $services=Service::where('id_user',$user->id)->where('state','=','open time')->get()->all();
 
         $parameter = parameter::where('id_user',$user->id)->first();
         return view('checkin',compact('parameter','services'));
@@ -115,6 +115,24 @@ class HomeController extends Controller
             Session::flash('failure', 'the code entred is incorrect !!');
             return view('checkout');};
     }
+
+    public function checkoutsuccess2(Request $request){
+        
+        $code=$request->get('text');
+
+        $visitor = Visitor::where('code',$code)->first();
+      if($visitor)
+      {   
+          $visitor = Visitor::where('code',$code)->update(array('created_at'=>now()));
+          $visit= Visit::where('code',$code)->update(array('created_at'=>now()));
+          $visitor = Visitor::where('code',$code)->first();
+
+          return view('pre_appointment_checkin0',compact('visitor'));
+          
+      }elseif(empty($visitor)){
+          Session::flash('failure', 'the code entred is incorrect !!');
+          return view('pre_appointment_checkin');};
+  }
     public function checkinsucess()
     {       
             
@@ -258,7 +276,7 @@ class HomeController extends Controller
        $event= Event::where('start', '<=', $request->input('start'))
         ->where('end', '>=', $request->input('end'))->first();
         if($event->state=="open time"){
-        $visitorlimit= visitor::where('id_service',$request->get('service'))->count();
+        $visitorlimit= visitor::where('id_event',$event->id)->count();
             if($visitorlimit> $event->limit_of_attendees){
                 Alert::error('Error!','this service has a limited attendees !sorry to inform you that all the places are filled');       
                 return redirect()->back();
@@ -303,8 +321,9 @@ class HomeController extends Controller
        'field3'=> $field3,
        'id_service' => $request->get('service'),
        'checkin_date' => $request->input('start'),
+       'code'=>$first,
        'Qrcode' =>$file,
-
+        'id_event'=>$event->id,
 
     ]); 
   $visitor->save(); 
@@ -336,35 +355,15 @@ class HomeController extends Controller
 
       Alert::success('Success','Appointment is saved Successfully');
       return redirect()->back();}}elseif(!($event->state=="open time")){
-                    $start=Carbon::parse($event->start)->format('H:i:s');
-                    $end=Carbon::parse($event->end)->format('H:i:s');
-                    $tt=Carbon::parse($event->state)->format('H:i:s');
-                    $secs = strtotime($tt)-strtotime("00:00:00");
-                    $date = Carbon::parse($event->start)->format("Y-m-d");
-                    $result=$start;
-                    availability::create([
-                        'id_service'=>$request->get('service'),
-                        'id_user'=>$request->get('id_user'),
-                        'state'=>"not taken",
-                        'hours'=>$event->start,
-                        'id_visitor'=>"1",
-                        ]);
-                    do{
-                        $result=date("H:i:s",strtotime($result)+$secs);
-                        
-                        $datestamp = date('Y-m-d H:i:s', strtotime("$date $result"));
-                        availability::create([
-                            'id_service'=>$request->get('service'),
-                            'id_user'=>$request->get('id_user'),
-                            'state'=>"not taken",
-                            'hours'=>$datestamp,
-                            'id_visitor'=>"1",
-                            ]);
+                   $service=Service::where('id_department',$request->get('service'))->first();
 
-                    }while($result < $end);
 
-                    $available=  availability::get()->all();
+        
+                    $available=  availability::where('event_id',$event->id)->where('id_department',$request->get('service'))->get()->all();
+
                     $diff = null;
+                    $index = null;
+
                     foreach($available as $av)
                     {   $available_dates=$av->hours;
                        $timestamp=$request->input('start');
@@ -373,8 +372,10 @@ class HomeController extends Controller
                             $index = $av->id;
                             $diff = $currDiff;
 
-                        }                            
-                    }       $av=availability::where('id',$index)->where('state','not taken')->first();          
+                        }                        
+                    }                      
+
+                    $av=availability::where('id',$index)->where('state','not taken')->first();   
                     if(!empty($av)){   
                         availability::where('id',$index)->update(['state'=>'taken']);
                         $checkin=$av->hours;
@@ -452,6 +453,7 @@ class HomeController extends Controller
 
                         Alert::success('Success','Appointment is saved Successfully you"ll receive an email soon');
                         return redirect()->back();}else{
+                          
                             Alert::error('Error','this date is taken try another date');
                             return redirect()->back();
                         }
@@ -484,4 +486,19 @@ class HomeController extends Controller
         $visitors = Visitor::where('id_user',$user->id)->where('checkout_date',NULL)->get()->all();
         return view('evacuation',compact('visitors','present_visitors_number'));
     }
+    public function pre_appointment_checkin(){
+        $user = auth()->user();
+     
+    
+            $parameter = parameter::where('id_user',$user->id)->first();
+            return view('pre_appointment_checkin',compact('parameter'));
+
+    }
+    public function pre_appointment_checkin_add(Request $request){
+        $user = auth()->user();
+        $id=$request->get('id_vistor');
+        $visitors = Visitor::where('id_user',$user->id)->where('id',$id)->update(['visitor_image',$request->get('visitor_image')]);
+        $visitors = Visitor::where('id_user',$user->id)->where('id',$id)->first();
+
+        return view('check-in-succes',compact('visitor','parameter'));    }
 }

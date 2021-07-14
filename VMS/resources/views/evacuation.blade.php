@@ -297,7 +297,7 @@ Identify safe escape routes, Find routes that will get people out of the buildin
 
     
 Proceed quickly to an exit. Once you know you are to evacuate, proceed quickly to your nearest exit. Do try to avoid panicking. </h3> </div>
-    </div>
+ 
     </div>
     <div class="carousel-item">
       <img src="../assets/img/carsoul/capture4.PNG" alt="New York" width="700" height="500">

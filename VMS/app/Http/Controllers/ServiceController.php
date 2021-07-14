@@ -120,6 +120,7 @@ class ServiceController extends Controller
         
 
         }elseif($service->recurrence=='Weekly'){
+           
            $start=Carbon::parse($service->start)->format("Y-m-d");
             $end=Carbon::parse($service->end)->format("Y-m-d");
             $resultend=date("Y-m-d",strtotime($end. ' + 7 days'));
